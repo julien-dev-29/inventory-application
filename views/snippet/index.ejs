@@ -1,0 +1,39 @@
+<%- include('../partials/head.ejs') %>
+
+    <body data-theme="light" class="min-h-screen">
+        <div class="container p-4">
+            <h1 class="text-2xl">Snippets</h1>
+            <div class="overflow-x-auto mt-4 max-w-lg">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% snippets.forEach(snippet=> { %>
+                            <tr>
+                                <th>
+                                    <%= snippet.id %>
+                                </th>
+                                <td>
+                                    <%= snippet.name %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-soft btn-primary" href="/snippet/<%= snippet.id%>">Editer</a>
+                                    <form action="/snippet/<%= snippet.id %>" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+
+    </html>

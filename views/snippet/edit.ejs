@@ -1,0 +1,21 @@
+<%- include('../partials/head.ejs') %>
+
+    <body data-theme="light" class="min-h-screen grid place-content-center">
+        <div class="container p-4">
+            <h1 class="text-2xl">
+                <%= snippet.name %>
+            </h1>
+            <form action="/snippet/<%= snippet.id %>" method="post">
+                <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+                    <legend class="fieldset-legend">Snippet</legend>
+                    <input type="text" class="input" name="name" id="name" value="<%= snippet.name %>"
+                        placeholder="My awesome page" />
+                </fieldset>
+                <button type="submit" class="btn btn-primary mt-2">Editer</button>
+                <a class="btn btn-error mt-2" href="/snippet">Annuler</a>
+            </form>
+
+        </div>
+    </body>
+
+    </html>
