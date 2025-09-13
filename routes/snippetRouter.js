@@ -3,8 +3,13 @@ import snippetController from '../controllers/snippetController.js'
 
 const snippetRouter = Router()
 
-snippetRouter.get('/snippet', snippetController.getAllSnippetsGet)
-snippetRouter.get('/snippet/:id', snippetController.getSnippetGet)
-snippetRouter.post('/snippet/:id', snippetController.getSnippetPost)
+snippetRouter.get('/snippet/create', snippetController.createSnippetGet)
+snippetRouter.post('/snippet/create', snippetController.createSnippetPost)
+
+snippetRouter.get('/snippet', snippetController.listAllSnippet)
+snippetRouter.get('/snippet/:id', snippetController.editSnippetGet)
+snippetRouter.post('/snippet/:id', snippetController.editSnippetPost)
+
+snippetRouter.delete('/snippet/:id', snippetController.deleteSnippet)
 
 export default snippetRouter 

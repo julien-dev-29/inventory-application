@@ -1,21 +1,39 @@
 <%- include('../partials/head.ejs') %>
 
-    <body data-theme="light" class="min-h-screen grid place-content-center">
-        <div class="container p-4">
-            <h1 class="text-2xl">
-                <%= snippet.name %>
-            </h1>
-            <form action="/snippet/<%= snippet.id %>" method="post">
-                <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-                    <legend class="fieldset-legend">Snippet</legend>
-                    <input type="text" class="input" name="name" id="name" value="<%= snippet.name %>"
-                        placeholder="My awesome page" />
-                </fieldset>
-                <button type="submit" class="btn btn-primary mt-2">Editer</button>
-                <a class="btn btn-error mt-2" href="/snippet">Annuler</a>
-            </form>
+    <body data-theme="light" class="min-h-screen flex flex-col items-center justify-between">
+        <%- include('../partials/navbar.ejs') %>
+            <div class="container flex justify-center">
+                <form class="w-xs" action="/snippet/<%= snippet.id %>" method="post">
+                    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+                        <legend class="fieldset-legend">Snippet</legend>
+                        <label for="title">Titre</label>
+                        <input type="text" class="input" name="title" id="title" value="<%= snippet.title %>"
+                            placeholder="Titre" />
+                        <label for="code">Code</label>
+                        <textarea class="textarea" name="code" id="code"><%= snippet.code %></textarea>
+                        <label for="description">Description</label>
+                        <textarea class="textarea" name="description"
+                            id="description"><%= snippet.description %></textarea>
+                        <label for="tags">Tags</label>
+                        <select class="select" name="tags" id="tags" multiple>
+                            <option disabled selected>Séléctionner plusieurs tags</option>
+                            <% tags.forEach(tag=> { %>
+                                <option value="">
+                                    <%= tag.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                        <label for="is_public">Public</label>
+                        <input type="checkbox" name="is_public" id="is_public" value=true <%=snippet.is_public===true
+                            ? "checked" : "" %> class="checkbox" />
+                    </fieldset>
+                    <button type="submit" class="btn btn-primary mt-2">Editer</button>
+                    <a class="btn btn-error mt-2" href="/snippet">Annuler</a>
+                </form>
 
-        </div>
+            </div>
+
+            <%- include('../partials/footer.ejs') %>
     </body>
 
     </html>

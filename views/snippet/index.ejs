@@ -1,39 +1,93 @@
 <%- include('../partials/head.ejs') %>
 
-    <body data-theme="light" class="min-h-screen">
-        <div class="container p-4">
-            <h1 class="text-2xl">Snippets</h1>
-            <div class="overflow-x-auto mt-4 max-w-lg">
-                <table class="table">
-                    <!-- head -->
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% snippets.forEach(snippet=> { %>
-                            <tr>
-                                <th>
-                                    <%= snippet.id %>
-                                </th>
-                                <td>
-                                    <%= snippet.name %>
-                                </td>
-                                <td>
-                                    <a class="btn btn-soft btn-primary" href="/snippet/<%= snippet.id%>">Editer</a>
-                                    <form action="/snippet/<%= snippet.id %>" method="post">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                    </form>
-                                </td>
-                            </tr>
-                            <% }) %>
-                    </tbody>
-                </table>
+    <body data-theme="light" class="min-h-screen flex flex-col justify-between">
+        <%- include('../partials/navbar.ejs') %>
+            <div class="container">
+                <div class="flex w-full">
+                    <div class="flex justify-center w-1/4 card bg-base-200 w-96 shadow-sm p-24">
+                        <a href="/snippet/create" class="btn btn-primary">Add a snippet</a>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="table">
+                            <!-- head -->
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Code</th>
+                                    <th>Langage</th>
+                                    <th>Projet</th>
+                                    <th>Tags</th>
+                                    <th>Complexité</th>
+                                    <th>Public</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% snippets.forEach(snippet=> { %>
+                                    <tr>
+                                        <th>
+                                            <%= snippet.id %>
+                                        </th>
+                                        <td>
+                                            <%= snippet.title %>
+                                        </td>
+                                        <td>
+                                            <%= snippet.description %>
+                                        </td>
+                                        <td>
+                                            <%= snippet.code %>
+                                        </td>
+                                        <td>
+                                            <%= snippet.language_name %>
+                                        </td>
+                                        <td>
+                                            <% snippet.projects.forEach(p=> { %>
+                                                <div>
+                                                    <%= p.name %>
+                                                </div>
+                                                <% }) %>
+                                        </td>
+                                        <td>
+                                            <% snippet.tags.forEach(tag=> { %>
+                                                <div>
+                                                    <%= tag.name %>
+                                                </div>
+                                                <% }) %>
+                                        </td>
+                                        <td>
+                                            <%= snippet.complexity %>
+                                        </td>
+                                        <td>
+                                            <%= snippet.is_public %>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-soft btn-primary"
+                                                href="/snippet/<%= snippet.id%>">Editer</a>
+                                            <form action="/snippet/<%= snippet.id %>" method="post">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
-        </div>
+            <div class="flex justify-center">
+                <div class="join mb-4">
+                    <% for( let index=1; index < pages; index++ ) { %>
+                        <a href="/snippet/?p=<%= index%>"
+                            class="join-item btn btn-md <%= currentPage === index ? 'btn-active' : '' %>">
+                            <%= index %>
+                        </a>
+                        <% } %>
+                </div>
+            </div>
+            <%- include('../partials/footer.ejs') %>
     </body>
 
     </html>
