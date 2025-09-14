@@ -5,6 +5,7 @@ import { dirname } from 'node:path'
 import bodyParser from 'body-parser'
 import path from 'node:path'
 import snippetRouter from './routes/snippetRouter.js'
+import homeRouter from './routes/homeRouter.js'
 
 
 // App
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // Router
 app.use(snippetRouter)
+app.use(homeRouter)
 
 // Server
 app.listen(PORT, (err) => {

@@ -2,6 +2,14 @@ import { Client } from 'pg';
 import 'dotenv/config';
 
 const SQL = `
+DROP TABLE IF EXISTS snippet_projects;
+DROP TABLE IF EXISTS snippet_tags;
+DROP TABLE IF EXISTS snippets;
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS languages;
+
+-- Création des tables
 CREATE TABLE languages(
    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    name VARCHAR(50) UNIQUE NOT NULL
@@ -29,7 +37,7 @@ CREATE TABLE snippets(
    complexity VARCHAR(20) CHECK (complexity IN ('Débutant', 'Intermédiaire', 'Avancé')),
    is_public BOOLEAN DEFAULT FALSE,
    language_id INTEGER NOT NULL,
-   FOREIGN KEY(language_id) REFERENCES languages(id)
+   FOREIGN KEY(language_id) REFERENCES languages(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Le reste du script reste inchangé

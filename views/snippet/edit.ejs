@@ -6,23 +6,46 @@
                 <form class="w-xs" action="/snippet/<%= snippet.id %>" method="post">
                     <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
                         <legend class="fieldset-legend">Snippet</legend>
-                        <label for="title">Titre</label>
-                        <input type="text" class="input" name="title" id="title" value="<%= snippet.title %>"
-                            placeholder="Titre" />
-                        <label for="code">Code</label>
+                        <label class="input">
+                            <span class="label">Titre</span>
+                            <input type="text" class="input" name="title" id="title" value="<%= snippet.title %>"
+                                placeholder="Titre" />
+                        </label>
+                        <label class="label" for="code">Code</label>
                         <textarea class="textarea" name="code" id="code"><%= snippet.code %></textarea>
-                        <label for="description">Description</label>
+                        <label class="label" for="description">Description</label>
                         <textarea class="textarea" name="description"
                             id="description"><%= snippet.description %></textarea>
-                        <label for="tags">Tags</label>
-                        <select class="select" name="tags" id="tags" multiple>
-                            <option disabled selected>Séléctionner plusieurs tags</option>
-                            <% tags.forEach(tag=> { %>
-                                <option value="">
-                                    <%= tag.name %>
+                        <select class="select" name="language_id" id="language_id">
+                            <option disabled selected>Langage</option>
+                            <% languages.forEach(language=> { %>
+                                <option value="<%= language.id %>" <%=snippet.language_name===language.name ? 'selected'
+                                    : '' %> >
+                                    <%= language.name %>
                                 </option>
                                 <% }) %>
                         </select>
+                        <label for="tags">Tags</label>
+                        <select class="border " name="tags" id="tags" multiple>
+                            <% tags.forEach(tag=> { %>
+                                <option value="<%= tag.id %>" <%=snippet.tags.some(t=> t.name === tag.name) ?
+                                    'selected' : '' %>>
+                                    <%= tag.name %>
+                                </option>
+                                <% }); %>
+                        </select>
+                        <label for="projects">Projets</label>
+                        <select name="projects" id="projects" multiple>
+                            <% projects.forEach(project=> { %>
+                                <option value="<%= project.id %>" <%=snippet.projects.some(p=> p.name === project.name)
+                                    ?
+                                    'selected' : '' %> >
+                                    <%= project.name %>
+                                </option>
+                                <% }); %>
+                        </select>
+
+
                         <label for="is_public">Public</label>
                         <input type="checkbox" name="is_public" id="is_public" value=true <%=snippet.is_public===true
                             ? "checked" : "" %> class="checkbox" />

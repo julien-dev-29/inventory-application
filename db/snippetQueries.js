@@ -86,11 +86,27 @@ export default {
      * @returns 
      */
     updateSnippetById: async (id, snippet) => {
-        const { title, code, description, is_public} = snippet
-        return pool.query(
-            'UPDATE snippets SET title = $1, code = $2, description = $3, is_public = $4 WHERE id = $5',
-            [title, code, description, is_public, id]
+        const { title, code, description, is_public, tags, projects, language_id } = snippet
+        console.log(language);
+        await pool.query(
+            `UPDATE snippets SET title = $1, code = $2, description = $3, is_public = $4, language_id = $5 WHERE id = $6;`,
+            [title, code, description, is_public, Number(language_id), id]
         )
+        await pool.query(`DELETE from snippet_tags WHERE snippet_id = $1;`, [id])
+        await pool.query(`DELETE from snippet_projects WHERE snippet_id = $1;`, [id])
+        const tagIds = Array.isArray(tags) ? tags : [tags];
+        if (tagIds.length > 0) {
+            await Promise.all(tagIds.map(t =>
+                pool.query(`INSERT INTO snippet_tags VALUES ($1, $2)`, [id, t])
+            ));
+        }
+        const projectIds = Array.isArray(projects) ? projects : [projects]
+        if (projectIds.length > 0) {
+            await Promise.all(projectIds.map(p => {
+                pool.query(`INSERT INTO snippet_projects VALUES ($1, $2)`, [id, p])
+            }))
+        }
+        return true
     },
     /**
      * Supprime un snippet par son id
@@ -104,17 +120,31 @@ export default {
         )
     },
     /**
-     * Ajoute un snippet
+     * Insert un snippet en base de données
      * @param {*} req 
      * @param {*} res 
      * @returns 
      */
-    addSnippet: async (snippet) => {
-        const { title, code, description } = snippet
-        return pool.query(
-            "INSERT INTO snippets (title, code, description) VALUES ($1, $2, $3);",
-            [title, code, description]
+    insertSnippet: async (snippet) => {
+        const { title, code, description, language_id, projects, tags, complexity } = snippet
+        const { rows } = await pool.query(
+            "INSERT INTO snippets (title, code, description, complexity, language_id) VALUES ($1, $2, $3, $4, $5) RETURNING id;",
+            [title, code, description, complexity, language_id]
         )
+        const id = rows[0].id
+        const projectIds = Array.isArray(projects) ? projects : [projects]
+        if (projectIds.length > 0) {
+            await Promise.all(projectIds.map(projectId => {
+                pool.query(`INSERT INTO snippet_projects VALUES ($1, $2)`, [id, projectId])
+            }))
+        }
+        const tagsIds = Array.isArray(tags) ? tags : [tags]
+        if (tagsIds.length > 0) {
+            await Promise.all(tagsIds.map(tagId => {
+                pool.query(`INSERT INTO snippet_tags VALUES ($1, $2)`, [id, tagId])
+            }))
+        }
+        return true
     },
     /**
      * Compte le nombre de snippets

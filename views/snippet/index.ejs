@@ -4,7 +4,7 @@
         <%- include('../partials/navbar.ejs') %>
             <div class="container">
                 <div class="flex w-full">
-                    <div class="flex justify-center w-1/4 card bg-base-200 w-96 shadow-sm p-24">
+                    <div class="flex justify-center card bg-base-200 shadow-sm p-12">
                         <a href="/snippet/create" class="btn btn-primary">Add a snippet</a>
                     </div>
                     <div class="overflow-x-auto">
@@ -37,50 +37,55 @@
                                             <%= snippet.description %>
                                         </td>
                                         <td>
-                                            <%= snippet.code %>
+                                            <div class="mockup-code w-full">
+                                                <pre data-prefix="$"><code><%= snippet.code %></code></pre>
+
+                                            </div>
                                         </td>
                                         <td>
                                             <%= snippet.language_name %>
                                         </td>
                                         <td>
-                                            <% snippet.projects.forEach(p=> { %>
+                                            <% snippet.projects.forEach(project=> { %>
                                                 <div>
-                                                    <%= p.name %>
+                                                    <%= project.name %>
                                                 </div>
                                                 <% }) %>
                                         </td>
-                                        <td>
-                                            <% snippet.tags.forEach(tag=> { %>
-                                                <div>
-                                                    <%= tag.name %>
-                                                </div>
-                                                <% }) %>
-                                        </td>
-                                        <td>
-                                            <%= snippet.complexity %>
-                                        </td>
-                                        <td>
-                                            <%= snippet.is_public %>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-soft btn-primary"
-                                                href="/snippet/<%= snippet.id%>">Editer</a>
-                                            <form action="/snippet/<%= snippet.id %>" method="post">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <% }) %>
-                            </tbody>
-                        </table>
                     </div>
+
+                    </td>
+                    <td>
+                        <% snippet.tags.forEach(tag=> { %>
+                            <div class="badge badge-outline badge-primary mr-1 mb-1">
+                                <%= tag.name %>
+                            </div>
+                            <% }) %>
+                    </td>
+                    <td>
+                        <%= snippet.complexity %>
+                    </td>
+                    <td>
+                        <%= snippet.is_public %>
+                    </td>
+                    <td>
+                        <a class="btn btn-soft btn-primary" href="/snippet/<%= snippet.id%>">Editer</a>
+                        <form action="/snippet/<%= snippet.id %>" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                        </form>
+                    </td>
+                    </tr>
+                    <% }) %>
+                        </tbody>
+                        </table>
                 </div>
+            </div>
 
             </div>
             <div class="flex justify-center">
                 <div class="join mb-4">
-                    <% for( let index=1; index < pages; index++ ) { %>
-                        <a href="/snippet/?p=<%= index%>"
+                    <% for( let index=1; index <=pages; index++ ) { %>
+                        <a href="/snippet/?p=<%= index %>"
                             class="join-item btn btn-md <%= currentPage === index ? 'btn-active' : '' %>">
                             <%= index %>
                         </a>

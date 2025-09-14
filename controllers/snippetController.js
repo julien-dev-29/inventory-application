@@ -1,5 +1,8 @@
 import dbSnippet from '../db/snippetQueries.js'
 import dbTags from '../db/tagQueries.js'
+import dbProjects from '../db/projectQueries.js'
+import dbLanguage from '../db/languageQueries.js'
+import languageQueries from '../db/languageQueries.js'
 
 export default {
     /**
@@ -9,7 +12,7 @@ export default {
      */
     listAllSnippet: async (req, res) => {
         const { count } = await dbSnippet.count()
-        let pages = (count / 8) + 1
+        let pages = Math.ceil(count / 8)
         const currentPage = Number(req.query.p) || 1
         let offset = (currentPage - 1) * 8
         const snippets = await dbSnippet.getPaginateSnippetsWithLanguageAndCategoryAndTags(offset)
@@ -30,7 +33,9 @@ export default {
         res.render('snippet/edit', {
             title: "Editer",
             snippet: await dbSnippet.getSnippetByIdWithLanguageAndCategoryAndTags(Number(req.params.id)),
-            tags: await dbTags.getAllTags()
+            tags: await dbTags.getAllTags(),
+            projects: await dbProjects.getAllProjects(),
+            languages: await dbLanguage.getAllLanguages()
         })
     },
 
@@ -40,8 +45,9 @@ export default {
      * @param {*} res 
      */
     editSnippetPost: async (req, res) => {
-        dbSnippet.updateSnippetById(req.params.id, req.body)
-        res.redirect('/snippet')
+        await dbSnippet.updateSnippetById(req.params.id, req.body)
+        res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.redirect('/snippet');
     },
     /**
      * 
@@ -58,7 +64,12 @@ export default {
      * @param {*} res 
      */
     createSnippetGet: async (req, res) => {
-        res.render('snippet/create', { title: "Créer un snippet" })
+        res.render('snippet/create', {
+            title: "Créer un snippet",
+            languages: await dbLanguage.getAllLanguages(),
+            tags: await dbTags.getAllTags(),
+            projects: await dbProjects.getAllProjects()
+        })
     },
     /**
      * 
@@ -66,7 +77,8 @@ export default {
      * @param {*} res 
      */
     createSnippetPost: async (req, res) => {
-        await dbSnippet.addSnippet(req.body)
+        console.log(req.body);
+        await dbSnippet.insertSnippet(req.body)
         res.redirect('/snippet')
     }
 }
