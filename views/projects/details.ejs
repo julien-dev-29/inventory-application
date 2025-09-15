@@ -1,0 +1,32 @@
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <h1><a href="/">Snippet Inventory</a></h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/projects">Retour à la liste des projets</a></li>
+        </ul>
+        <hr>
+        <h2>
+            Détails du projet : <%= project.name %>
+        </h2>
+        <p><strong>ID :</strong>
+            <%= project.id %>
+        </p>
+        <p><strong>Nom :</strong>
+            <%= project.name %>
+        </p>
+        <p><strong>Description :</strong>
+            <%= project.description %>
+        </p>
+        <p><strong>Github repo :</strong>
+            <%= project.github_repo %>
+        </p>
+        <form action="/projects/<%= project.id %>/delete" method="post">
+            <a href="/projects/<%= project.id %>/edit">Editer</a>
+            <button type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
+        </form>
+
+    </body>
+
+    </html>

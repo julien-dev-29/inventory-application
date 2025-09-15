@@ -19,10 +19,11 @@ export default {
         )
         return rows[0]
     },
-    createProject: async (name, description) => {
+    createProject: async (project) => {
+        const { name, description, github_repo } = project
         const { rows } = await pool.query(
-            `INSERT INTO projects (name, description) VALUES ($1, $2) RETURNING *`,
-            [name, description]
+            `INSERT INTO projects (name, description, github_repo) VALUES ($1, $2, $3) RETURNING *`,
+            [name, description, github_repo]
         )
         return rows[0]
     },

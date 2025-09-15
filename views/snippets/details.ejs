@@ -2,7 +2,7 @@
 
     <body>
         <h1>
-            <%= snippet.title %>
+            Détail du snippet : <%= snippet.title %>
         </h1>
         <pre>
             <%= snippet.code %>
@@ -10,14 +10,16 @@
         <p>
             <%= snippet.description %>
         </p>
-        <h4>Niveau: <%= snippet.complexity %>
-        </h4>
+        <p><strong>Niveau:</strong>
+            <%= snippet.complexity %>
+        </p>
         <p>
             <%= snippet.createdAt %>
         </p>
         <p>
-        <h4>Language: <%= snippet.language_name %>
-        </h4>
+        <p><strong>Language:</strong>
+            <%= snippet.language_name %>
+        </p>
         </p>
         <p>
         <h4>Tags:</h4>

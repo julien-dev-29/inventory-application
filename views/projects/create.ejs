@@ -1,0 +1,23 @@
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <h1>Créer un nouveau projet</h1>
+        <form action="/projects/create" method="POST">
+            <div>
+                <label for="name">Nom du projet :</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="description">Description :</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <div>
+                <label for="github_repo">Github repo :</label>
+                <textarea id="github_repo" name="github_repo" required></textarea>
+            </div>
+            <button type="submit">Créer le projet</button>
+            <a href="/projects">Annuler</a>
+        </form>
+    </body>
+
+    </html>

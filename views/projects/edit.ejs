@@ -1,0 +1,18 @@
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <h1>Éditer le projet : <%= project.name %>
+        </h1>
+        <form action="/projects/<%= project.id %>/edit" method="POST">
+            <label for="name">Nom du projet :</label>
+            <input type="text" id="name" name="name" value="<%= project.name %>" required>
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" required><%= project.description %></textarea>
+            <label for="github_repo">Github repo :</label>
+            <input id="github_repo" name="github_repo" value="<%= project.github_repo %>" required />
+            <button type="submit">Sauvegarder les modifications</button>
+            <a href="/projects/<%= project.id %>">Annuler</a>
+        </form>
+    </body>
+
+    </html>

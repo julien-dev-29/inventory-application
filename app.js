@@ -6,8 +6,7 @@ import bodyParser from 'body-parser'
 import path from 'node:path'
 import router from './routes/router.js'
 import snippetRouter from './routes/snippetRouter.js'
-
-
+import projectRouter from './routes/projectRouter.js'
 
 // App
 const app = express()
@@ -30,7 +29,13 @@ app.use(express.urlencoded({ extended: true }))
 
 // Router
 app.use(router)
-app.use(snippetRouter)
+app.use('/snippets', snippetRouter)
+app.use('/projects', projectRouter)
+
+// 404 page
+app.use((req, res) => {
+    res.status(404).render('404', { title: "404" })
+})
 
 // Server
 app.listen(PORT, (err) => {

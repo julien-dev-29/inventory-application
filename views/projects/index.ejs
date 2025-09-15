@@ -2,35 +2,35 @@
 
     <body>
         <h1>
-            <a href="/">Snippet Inventory</a>
+            <%= title %>
         </h1>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/snippets/create">Ajouter un snippet</a></li>
+            <li><a href="/projects/create">Ajouter un projet</a></li>
         </ul>
         <hr>
-        <table border="">
+        <table>
             <thead>
                 <th>#</th>
                 <th>Nom</th>
                 <th>Actions</th>
             </thead>
             <tbody>
-                <% snippets.forEach(snippet=> { %>
+                <% projects.forEach(project=> { %>
                     <tr>
                         <th>
-                            <%= snippet.id %>
+                            <%= project.id %>
                         </th>
                         <td>
-                            <%= snippet.title %>
+                            <%= project.name %>
                         </td>
-                        <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
+                        <td><a href="/projects/<%= project.id %>">Details</a></td>
                     </tr>
                     <% }) %>
             </tbody>
         </table>
         <% for( let index=0; index < pages; index++ ) { %>
-            <a href="/snippets/?p=<%= index + 1 %>">
+            <a href="/projects?p=<%= index + 1 %>">
                 <%= index + 1 %>
             </a>
             <% } %>
