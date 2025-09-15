@@ -45,16 +45,16 @@ CREATE TABLE snippet_tags(
    snippet_id INT NOT NULL,
    tag_id INT NOT NULL,
    PRIMARY KEY(snippet_id, tag_id),
-   FOREIGN KEY(snippet_id) REFERENCES snippets(id),
-   FOREIGN KEY(tag_id) REFERENCES tags(id)
+   FOREIGN KEY(snippet_id) REFERENCES snippets(id) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY(tag_id) REFERENCES tags(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE snippet_projects(
    snippet_id INT NOT NULL,
    project_id INT NOT NULL,
    PRIMARY KEY(snippet_id, project_id),
-   FOREIGN KEY(snippet_id) REFERENCES snippets(id),
-   FOREIGN KEY(project_id) REFERENCES projects(id)
+   FOREIGN KEY(snippet_id) REFERENCES snippets(id) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Trigger pour updated_at
@@ -185,23 +185,23 @@ INSERT INTO snippet_projects (snippet_id, project_id) VALUES
 `;
 
 async function main() {
-    console.log("Seeding...");
-    const client = new Client({
-        host: process.env.PG_HOST,
-        user: process.env.PG_USER,
-        database: process.env.PG_DATABASE,
-        password: process.env.PG_PASSWORD,
-        port: process.env.PG_PORT,
-    });
-    try {
-        await client.connect();
-        await client.query(SQL);
-        console.log('Done!');
-    } catch (err) {
-        console.error('Error during seeding:', err);
-    } finally {
-        await client.end();
-    }
+   console.log("Seeding...");
+   const client = new Client({
+      host: process.env.PG_HOST,
+      user: process.env.PG_USER,
+      database: process.env.PG_DATABASE,
+      password: process.env.PG_PASSWORD,
+      port: process.env.PG_PORT,
+   });
+   try {
+      await client.connect();
+      await client.query(SQL);
+      console.log('Done!');
+   } catch (err) {
+      console.error('Error during seeding:', err);
+   } finally {
+      await client.end();
+   }
 }
 
 main();

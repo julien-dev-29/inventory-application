@@ -1,0 +1,38 @@
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <h1>
+            <%= title %>
+        </h1>
+                <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/snippets/create">Ajouter un snippet</a></li>
+        </ul>
+        <table>
+            <thead>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                <% snippets.forEach(snippet=> { %>
+                    <tr>
+                        <th>
+                            <%= snippet.id %>
+                        </th>
+                        <td>
+                            <%= snippet.title %>
+                        </td>
+                        <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+        <% for( let index=0; index < pages; index++ ) { %>
+            <a href="/snippets/?p=<%= index + 1 %>">
+                <%= index + 1 %>
+            </a>
+            <% } %>
+    </body>
+
+    </html>

@@ -1,0 +1,47 @@
+<%- include('../partials/head.ejs') %>
+
+    <body class="body-edit">
+        <form action="/snippets/<%= snippet.id %>/edit" method="post">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" value="<%= snippet.title %>">
+            <label for="code">Code</label>
+            <textarea name="code" id="code"><%= snippet.code %></textarea>
+            <label for="description">Description</label>
+            <textarea name="description" id="description"><%= snippet.description %></textarea>
+            <label for="language_id">Langage</label>
+            <select name="language_id" id="language_id">
+                <% languages.forEach(l=> { %>
+                    <option value="<%= l.id %>" <%=snippet.language_id===l.id ? 'selected' : '' %> >
+                        <%= l.name %>
+                    </option>
+                    <% }) %>
+            </select>
+            <label for="tags">Tags</label>
+            <select name="tags" id="tags" multiple>
+                <% tags.forEach(t=> { %>
+                    <option value="<%= t.id %>" <%=snippet.tags.map(tag=> tag.id).includes(t.id) ? 'selected' : '' %> >
+                        <%= t.name %>
+                    </option>
+                    <% }) %>
+            </select>
+            <label for="projects">Projets</label>
+            <select name="projects" id="projects" multiple>
+                <% projects.forEach(p=> { %>
+                    <option value="<%= p.id %>" <%=snippet.projects.map(project=> project.id).includes(p.id) ?
+                        'selected' : '' %> ><%= p.name %>
+                    </option>
+                    <% }) %>
+            </select>
+            <label for="complexity">Niveau</label>
+            <select name="complexity" id="complexity">
+                <option value="Débutant" <%=snippet.complexity==="Débutant" ? "selected" : "" %> >Débutant</option>
+                <option value=" Intermédiaire" <%=snippet.complexity==="Intermédiaire" ? "selected" : "" %> >Intermédiaire</option>
+                <option value=" Avancé" <%=snippet.complexity==="Avancé" ? "selected" : "" %> >Avancé</option>
+            </select>
+            <button type=" submit">Save</button>
+                    <a href="/snippets/<%= snippet.id %>">Annuler</a>
+        </form>
+
+    </body>
+
+    </html>

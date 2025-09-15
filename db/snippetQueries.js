@@ -87,7 +87,6 @@ export default {
      */
     updateSnippetById: async (id, snippet) => {
         const { title, code, description, is_public, tags, projects, language_id } = snippet
-        console.log(language);
         await pool.query(
             `UPDATE snippets SET title = $1, code = $2, description = $3, is_public = $4, language_id = $5 WHERE id = $6;`,
             [title, code, description, is_public, Number(language_id), id]

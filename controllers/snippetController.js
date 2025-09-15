@@ -1,84 +1,54 @@
 import dbSnippet from '../db/snippetQueries.js'
+import dbLanguage from '../db/languageQueries.js'
 import dbTags from '../db/tagQueries.js'
 import dbProjects from '../db/projectQueries.js'
-import dbLanguage from '../db/languageQueries.js'
-import languageQueries from '../db/languageQueries.js'
 
 export default {
-    /**
-     * Récupère tous les snippets
-     * @param {*} req 
-     * @param {*} res 
-     */
-    listAllSnippet: async (req, res) => {
+    index: async (req, res) => {
         const { count } = await dbSnippet.count()
-        let pages = Math.ceil(count / 8)
-        const currentPage = Number(req.query.p) || 1
-        let offset = (currentPage - 1) * 8
-        const snippets = await dbSnippet.getPaginateSnippetsWithLanguageAndCategoryAndTags(offset)
-        res.render('snippet/index', {
-            title: "Tous les snippets",
-            pages: pages,
+        const currentPage = req.query.p || 1
+        const pages = Math.ceil(count / 8)
+        const offset = (currentPage - 1) * 8
+        res.render('snippets/index', {
+            title: "Snippets",
+            snippets: await dbSnippet.getPaginateSnippetsWithLanguageAndCategoryAndTags(offset),
             currentPage: currentPage,
-            snippets: snippets
+            pages: pages
         })
     },
-
-    /**
-     * Récupère un snippet par son id
-     * @param {*} req 
-     * @param {*} res 
-     */
-    editSnippetGet: async (req, res) => {
-        res.render('snippet/edit', {
-            title: "Editer",
-            snippet: await dbSnippet.getSnippetByIdWithLanguageAndCategoryAndTags(Number(req.params.id)),
-            tags: await dbTags.getAllTags(),
-            projects: await dbProjects.getAllProjects(),
-            languages: await dbLanguage.getAllLanguages()
+    details: async (req, res) => {
+        res.render('snippets/details', {
+            title: "Details",
+            snippet: await dbSnippet.getSnippetByIdWithLanguageAndCategoryAndTags(req.params.snippetId)
         })
     },
-
-    /**
-     * Met à jour un snippet par son id
-     * @param {*} req 
-     * @param {*} res 
-     */
-    editSnippetPost: async (req, res) => {
-        await dbSnippet.updateSnippetById(req.params.id, req.body)
-        res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-        res.redirect('/snippet');
-    },
-    /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     */
-    deleteSnippet: async (req, res) => {
-        dbSnippet.deleteSnippetById(req.params.id)
-        res.redirect('/')
-    },
-    /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     */
-    createSnippetGet: async (req, res) => {
-        res.render('snippet/create', {
-            title: "Créer un snippet",
+    edit: async (req, res) => {
+        res.render('snippets/edit', {
+            title: "Edit",
+            snippet: await dbSnippet.getSnippetByIdWithLanguageAndCategoryAndTags(req.params.snippetId),
             languages: await dbLanguage.getAllLanguages(),
             tags: await dbTags.getAllTags(),
             projects: await dbProjects.getAllProjects()
         })
     },
-    /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     */
-    createSnippetPost: async (req, res) => {
-        console.log(req.body);
+    update: async (req, res) => {
+        await dbSnippet.updateSnippetById(req.params.snippetId, req.body)
+        res.redirect(`/snippets/${req.params.snippetId}`)
+    },
+    create: async (req, res) => {
+        res.render('snippets/create', {
+            title: "Ajouter un snippet",
+            languages: await dbLanguage.getAllLanguages(),
+            tags: await dbTags.getAllTags(),
+            projects: await dbProjects.getAllProjects()
+        })
+    },
+    store: async (req, res) => {
         await dbSnippet.insertSnippet(req.body)
-        res.redirect('/snippet')
-    }
+        res.redirect('/snippets')
+    },
+    delete: async (req, res) => {
+        await dbSnippet.deleteSnippetById(req.params.snippetId)
+        res.redirect('/snippets')
+    }   
 }

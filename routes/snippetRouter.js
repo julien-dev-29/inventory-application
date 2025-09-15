@@ -1,15 +1,14 @@
 import { Router } from "express";
-import snippetController from '../controllers/snippetController.js'
+import snippetController from "../controllers/snippetController.js";
 
 const snippetRouter = Router()
 
-snippetRouter.get('/snippet/create', snippetController.createSnippetGet)
-snippetRouter.post('/snippet/create', snippetController.createSnippetPost)
+snippetRouter.get('/snippets', snippetController.index)
+snippetRouter.get('/snippets/create', snippetController.create)
+snippetRouter.post('/snippets/create', snippetController.store)
+snippetRouter.get('/snippets/:snippetId', snippetController.details)
+snippetRouter.get('/snippets/:snippetId/edit', snippetController.edit)
+snippetRouter.post('/snippets/:snippetId/edit', snippetController.update)
+snippetRouter.post('/snippets/:snippetId/delete', snippetController.delete)
 
-snippetRouter.get('/snippet', snippetController.listAllSnippet)
-snippetRouter.get('/snippet/:id', snippetController.editSnippetGet)
-snippetRouter.post('/snippet/:id', snippetController.editSnippetPost)
-
-snippetRouter.delete('/snippet/:id', snippetController.deleteSnippet)
-
-export default snippetRouter 
+export default snippetRouter

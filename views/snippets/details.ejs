@@ -1,0 +1,50 @@
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <h1>
+            <%= snippet.title %>
+        </h1>
+        <pre>
+            <%= snippet.code %>
+        </pre>
+        <p>
+            <%= snippet.description %>
+        </p>
+        <h4>Niveau: <%= snippet.complexity %>
+        </h4>
+        <p>
+            <%= snippet.createdAt %>
+        </p>
+        <p>
+        <h4>Language: <%= snippet.language_name %>
+        </h4>
+        </p>
+        <p>
+        <h4>Tags:</h4>
+        <ul>
+            <% snippet.tags.forEach(tag=> { %>
+                <li>
+                    <%= tag.name %>
+                </li>
+                <% }) %>
+        </ul>
+        </p>
+        <p>
+        <h4>Projects:</h4>
+        <ul>
+            <% snippet.projects.forEach(project=> { %>
+                <li>
+                    <%= project.name %>
+                </li>
+                <% }) %>
+        </ul>
+        </p>
+        <a href="/snippets/<%= snippet.id %>/edit">Edit</a>
+        <a href="/snippets">Back to list</a>
+        <form action="/snippets/<%= snippet.id %>/delete" method="POST" style="display:inline;">
+            <button type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
+        </form>
+
+    </body>
+
+    </html>
