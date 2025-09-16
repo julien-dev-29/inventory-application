@@ -21,7 +21,7 @@ export default {
      * @param {*} offset 
      * @returns 
      */
-    getPaginateSnippetsWithLanguageAndCategoryAndTags: async (offset) => {
+    getPaginatedSnippetsWithLanguageAndProjectsAndTags: async (offset) => {
         const { rows } = await pool.query(`
             SELECT
             s.*,
@@ -59,7 +59,7 @@ export default {
      * @param {*} id 
      * @returns 
      */
-    getSnippetByIdWithLanguageAndCategoryAndTags: async (id) => {
+    getSnippetByIdWithLanguageAndProjectsAndTags: async (id) => {
         const { rows } = await pool.query(`
             SELECT
             s.*,
@@ -86,10 +86,10 @@ export default {
      * @returns 
      */
     updateSnippetById: async (id, snippet) => {
-        const { title, code, description, is_public, tags, projects, language_id } = snippet
+        const { title, code, description, is_public, tags, projects, language_id, complexity, } = snippet
         await pool.query(
-            `UPDATE snippets SET title = $1, code = $2, description = $3, is_public = $4, language_id = $5 WHERE id = $6;`,
-            [title, code, description, is_public, Number(language_id), id]
+            `UPDATE snippets SET title = $1, code = $2, description = $3, is_public = $4, language_id = $5, complexity = $6 WHERE id = $7;`,
+            [title, code, description, is_public, Number(language_id), complexity, id]
         )
         await pool.query(`DELETE from snippet_tags WHERE snippet_id = $1;`, [id])
         await pool.query(`DELETE from snippet_projects WHERE snippet_id = $1;`, [id])
@@ -125,10 +125,10 @@ export default {
      * @returns 
      */
     insertSnippet: async (snippet) => {
-        const { title, code, description, language_id, projects, tags, complexity } = snippet
+        const { title, code, description, is_public, language_id, projects, tags, complexity } = snippet
         const { rows } = await pool.query(
-            "INSERT INTO snippets (title, code, description, complexity, language_id) VALUES ($1, $2, $3, $4, $5) RETURNING id;",
-            [title, code, description, complexity, language_id]
+            "INSERT INTO snippets (title, code, description, is_public, complexity, language_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
+            [title, code, description, is_public, complexity, language_id]
         )
         const id = rows[0].id
         const projectIds = Array.isArray(projects) ? projects : [projects]

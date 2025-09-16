@@ -5,7 +5,7 @@
             <a href="/">Snippet Inventory</a>
         </h1>
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Accueil</a></li>
             <li><a href="/snippets/create">Ajouter un snippet</a></li>
         </ul>
         <hr>
@@ -16,17 +16,23 @@
                 <th>Actions</th>
             </thead>
             <tbody>
-                <% snippets.forEach(snippet=> { %>
-                    <tr>
-                        <th>
-                            <%= snippet.id %>
-                        </th>
-                        <td>
-                            <%= snippet.title %>
-                        </td>
-                        <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
-                    </tr>
-                    <% }) %>
+                <% if (snippets) { %>
+                    <% snippets.forEach(snippet=> { %>
+                        <tr>
+                            <th>
+                                <%= snippet.id %>
+                            </th>
+                            <td>
+                                <%= snippet.title %>
+                            </td>
+                            <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
+                        </tr>
+                        <% }) %>
+                            <% } else { %>
+                                <p>
+                                    Pas de snippets!
+                                </p>
+                                <% } %>
             </tbody>
         </table>
         <% for( let index=0; index < pages; index++ ) { %>

@@ -8,34 +8,34 @@
         </h1>
         <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="/projects/create">Ajouter un projet</a></li>
+            <li><a href="/tags/create">Ajouter un tag</a></li>
         </ul>
         <hr>
-        <h2>
-            <%= title %>
-        </h2>
         <table border="1">
+            <h2>
+                <%= title %>
+            </h2>
             <thead>
                 <th>#</th>
                 <th>Nom</th>
                 <th>Actions</th>
             </thead>
             <tbody>
-                <% projects.forEach(project=> { %>
+                <% tags.forEach(tag=> { %>
                     <tr>
                         <th>
-                            <%= project.id %>
+                            <%= tag.id %>
                         </th>
                         <td>
-                            <%= project.name %>
+                            <%= tag.name %>
                         </td>
-                        <td><a href="/projects/<%= project.id %>">Details</a></td>
+                        <td><a href="/tags/<%= tag.id %>">Details</a></td>
                     </tr>
                     <% }) %>
             </tbody>
         </table>
         <% for( let index=0; index < pages; index++ ) { %>
-            <a href="/projects?p=<%= index + 1 %>">
+            <a href="/tags?p=<%= index + 1 %>">
                 <%= index + 1 %>
             </a>
             <% } %>

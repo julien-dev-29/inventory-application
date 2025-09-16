@@ -1,0 +1,28 @@
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <h1>
+            <a href="/">
+                <%= appTitle %>
+            </a>
+        </h1>
+        <nav>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/tags">Retour à la liste</a></li>
+            </ul>
+        </nav>
+        <hr>
+        <h2>
+            <%= title %>
+        </h2>
+        <p><strong>Name :</strong>
+            <%= tag.name %>
+        </p>
+        <form action="/tags/<%= tag.id %>/delete" method="post" enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="_method" value="DELETE">
+            <a href="/tags/<%= tag.id %>/edit">Editer</a>
+            <button type="submit" onclick="return confirm('Etes vous sûr ?')">Supprimer</button>
+        </form>
+    </body>
+    <html>

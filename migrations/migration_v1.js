@@ -34,7 +34,7 @@ CREATE TABLE snippets(
    description TEXT,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   complexity VARCHAR(20) CHECK (complexity IN ('Débutant', 'Intermédiaire', 'Avancé')),
+   complexity VARCHAR(20),
    is_public BOOLEAN DEFAULT FALSE,
    language_id INTEGER NOT NULL,
    FOREIGN KEY(language_id) REFERENCES languages(id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -75,7 +75,7 @@ EXECUTE FUNCTION update_updated_at();
 CREATE INDEX idx_snippets_language_id ON snippets(language_id);
 CREATE INDEX idx_snippets_complexity ON snippets(complexity);
 
--- Données (inchangées)
+-- Données 
 INSERT INTO languages (name) VALUES
 ('JavaScript'),
 ('Python'),

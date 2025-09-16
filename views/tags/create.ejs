@@ -1,0 +1,27 @@
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <h1>
+            <a href="/">
+                <%= appTitle %>
+            </a>
+        </h1>
+        <nav>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/tags">Retour à la liste</a></li>
+            </ul>
+        </nav>
+        <hr>
+        <h2>
+            <%= title %>
+        </h2>
+        <%- include('../partials/errors.ejs') %>
+            <form action="/tags/create" method="post">
+                <label for="name">Nom: </label>
+                <input type="text" name="name" id="name">
+                <button type="submit">Ajouter</button>
+                <a href="/tags">Annuler</a>
+            </form>
+    </body>
+    <html>

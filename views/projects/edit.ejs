@@ -3,7 +3,8 @@
     <body>
         <h1>Éditer le projet : <%= project.name %>
         </h1>
-        <form action="/projects/<%= project.id %>/edit" method="POST">
+        <form action="/projects/<%= project.id %>/edit" method="POST" enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="_method" value="PUT">
             <label for="name">Nom du projet :</label>
             <input type="text" id="name" name="name" value="<%= project.name %>" required>
             <label for="description">Description :</label>

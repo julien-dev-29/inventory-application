@@ -2,48 +2,61 @@
 
     <body>
         <h1>
-            <%= title %>
+            <a href="/">
+                <%= appTitle %>
+            </a>
         </h1>
-        <form action="/snippets/create" method="post">
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" required>
-            <label for=" code">Code</label>
-            <textarea name="code" id="code" required></textarea>
-            <label for="description">Description</label>
-            <textarea name="description" id="description" required></textarea>
-            <label for="language_id">Langage</label>
-            <select name="language_id" id="language_id" required>
-                <% languages.forEach(l=> { %>
-                    <option value="<%= l.id %>">
-                        <%= l.name %>
-                    </option>
-                    <% }) %>
-            </select>
-            <label for="tags">Tags</label>
-            <select name="tags" id="tags" multiple required>
-                <% tags.forEach(t=> { %>
-                    <option value="<%= t.id %>">
-                        <%= t.name %>
-                    </option>
-                    <% }) %>
-            </select>
-            <label for="projects">Projets</label>
-            <select name="projects" id="projects" multiple required>
-                <% projects.forEach(p=> { %>
-                    <option value="<%= p.id %>">
-                        <%= p.name %>
-                    </option>
-                    <% }) %>
-            </select>
-            <label for="complexity">Niveau</label>
-            <select name="complexity" id="complexity">
-                <option value="Débutant">Débutant</option>
-                <option value=" Intermédiaire">Intermédiaire</option>
-                <option value=" Avancé">Avancé</option>
-            </select>
-            <button type="submit">Save</button>
-            <a href="/snippets">Annuler</a>
-        </form>
+        <nav>
+            <lu>
+                <li><a href="/">Accueil</a></li>
+            </lu>
+        </nav>
+        <hr>
+        <h2>
+            <%= title %>
+        </h2>
+        <%- include('../partials/errors.ejs') %>
+            <form action="/snippets/create" method="post">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" required>
+                <input type="checkbox" name="is_public" id="is_public" value="true">Public
+                <label for=" code">Code</label>
+                <textarea name="code" id="code" required></textarea>
+                <label for="description">Description</label>
+                <textarea name="description" id="description" required></textarea>
+                <label for="language_id">Langage</label>
+                <select name="language_id" id="language_id" required>
+                    <% languages.forEach(l=> { %>
+                        <option value="<%= l.id %>">
+                            <%= l.name %>
+                        </option>
+                        <% }) %>
+                </select>
+                <label for="tags">Tags</label>
+                <select name="tags" id="tags" multiple required>
+                    <% tags.forEach(t=> { %>
+                        <option value="<%= t.id %>">
+                            <%= t.name %>
+                        </option>
+                        <% }) %>
+                </select>
+                <label for="projects">Projets</label>
+                <select name="projects" id="projects" multiple required>
+                    <% projects.forEach(p=> { %>
+                        <option value="<%= p.id %>">
+                            <%= p.name %>
+                        </option>
+                        <% }) %>
+                </select>
+                <label for="complexity">Niveau</label>
+                <select name="complexity" id="complexity">
+                    <option value="Débutant">Débutant</option>
+                    <option value=" Intermédiaire">Intermédiaire</option>
+                    <option value=" Avancé">Avancé</option>
+                </select>
+                <button type="submit">Save</button>
+                <a href="/snippets">Annuler</a>
+            </form>
 
     </body>
 

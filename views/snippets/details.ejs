@@ -2,13 +2,30 @@
 
     <body>
         <h1>
-            Détail du snippet : <%= snippet.title %>
+            <a href="/">
+                <%= appTitle %>
+            </a>
         </h1>
+        <nav>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/snippets">Retour à la liste</a></li>
+            </ul>
+        </nav>
+
+        <hr>
+        <h2>
+            Détail du snippet : <%= snippet.title %>
+        </h2>
         <pre>
             <%= snippet.code %>
         </pre>
         <p>
-            <%= snippet.description %>
+            <strong>Status: </strong>
+            <%= snippet.is_public ? "Public" : "Privé" %>
+        </p>
+        <p>
+            <strong>Description: </strong><%= snippet.description %>
         </p>
         <p><strong>Niveau:</strong>
             <%= snippet.complexity %>
@@ -41,10 +58,10 @@
                 <% }) %>
         </ul>
         </p>
-        <a href="/snippets/<%= snippet.id %>/edit">Edit</a>
-        <a href="/snippets">Back to list</a>
-        <form action="/snippets/<%= snippet.id %>/delete" method="POST" style="display:inline;">
-            <button type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
+        <form action="/snippets/<%= snippet.id %>/delete" method="POST" enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="_method" value="DELETE" />
+            <a href="/snippets/<%= snippet.id %>/edit">Edit</a>
+            <button type="submit" onclick="return confirm('Etes vous sûr?')">Supprimer</button>
         </form>
 
     </body>
