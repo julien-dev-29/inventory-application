@@ -26,15 +26,16 @@ export default {
      */
     index: async (req, res) => {
         const { count } = await snippetRepository.count()
-        const currentPage = req.query.p || 1
+        const currentPage = Number(req.query.p) || 1
         const pages = Math.ceil(count / 8)
         const offset = (currentPage - 1) * 8
         res.render('snippets/index', {
             appTitle: appTitle,
-            title: "Snippets",
+            title: "Liste des snippets",
             snippets: await snippetRepository
                 .getPaginatedSnippetsWithLanguageAndProjectsAndTags(offset),
             currentPage: currentPage,
+            slug: "snippets",
             pages: pages
         })
     },
@@ -92,7 +93,7 @@ export default {
                     errors: errors.array()
                 })
             }
-            snippetRepository.updateSnippetById(req.params.snippetId, req.body)
+            snippetRepository.updateSnippetById(req.params.id, req.body)
                 .then(() => res.redirect(`/snippets/${req.params.id}`))
                 .catch(err => console.log(err))
         }],
@@ -144,7 +145,7 @@ export default {
      * @param {*} res 
      */
     delete: async (req, res) => {
-        await snippetRepository.deleteSnippetById(req.params.snippetId)
+        await snippetRepository.deleteSnippetById(req.params.id)
         res.redirect('/snippets')
     }
 }

@@ -1,6 +1,5 @@
 <%- include('../partials/head.ejs') %>
 
-    <body>
         <h1>
             <a href="/">
                 <%= appTitle %>
@@ -34,11 +33,7 @@
                     <% }) %>
             </tbody>
         </table>
-        <% for( let index=0; index < pages; index++ ) { %>
-            <a href="/tags?p=<%= index + 1 %>">
-                <%= index + 1 %>
-            </a>
-            <% } %>
+        <%- include('../partials/pagination.ejs') %>
     </body>
 
     </html>

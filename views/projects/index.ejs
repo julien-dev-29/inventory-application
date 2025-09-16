@@ -34,11 +34,13 @@
                     <% }) %>
             </tbody>
         </table>
-        <% for( let index=0; index < pages; index++ ) { %>
-            <a href="/projects?p=<%= index + 1 %>">
-                <%= index + 1 %>
-            </a>
-            <% } %>
+        <div class="pagination-container">
+            <% for( let index=0; index < pages; index++ ) { %>
+                <a class="pagination-link" href="/projects?p=<%= index + 1 %>">
+                    <%= index + 1 %>
+                </a>
+                <% } %>
+        </div>
     </body>
 
     </html>

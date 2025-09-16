@@ -1,15 +1,14 @@
 import { body, validationResult } from 'express-validator'
 import projectRepository from '../repositories/projectRepository.js'
 
-const lengthErr = "Le nom doit faire entre 3 et 15 charactères"
+const lengthErr = " doit faire entre 3 et 15 charactères"
 
 const validateProject = [
     body('name').trim()
-        .isLength({ min: 3, max: 15 }).withMessage(lengthErr),
+        .isLength({ min: 3, max: 15 }).withMessage("Le nom " + lengthErr),
     body('description').trim()
-        .isLength({ min: 3, max: 15 }).withMessage(lengthErr),
-    body('github_repo').trim()
-        .isLength({ min: 3, max: 15 }).withMessage(lengthErr)
+        .isLength({ min: 3, max: 15 }).withMessage("La description " + lengthErr),
+    body('github_repo').isURL().withMessage('L\'url n\'est pas valide')
 
 ]
 
@@ -108,8 +107,22 @@ export default {
     update: [
         validateProject,
         (req, res) => {
-            const project = req.body
-            projectRepository.updateProject(req.params.id, project)
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return projectRepository.getProjectById(req.params.id)
+                    .then(project => {
+                        res.status(4000).render('projects/edit', {
+                            appTitle: appTitle,
+                            title: "Editer le projet",
+                            project: project,
+                            errors: errors
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+            projectRepository.updateProject(req.params.id, req.body)
                 .then(() => {
                     res.redirect('/projects')
                 })

@@ -8,38 +8,38 @@
             <li><a href="/">Accueil</a></li>
             <li><a href="/snippets/create">Ajouter un snippet</a></li>
         </ul>
-        <hr>
-        <table border="">
-            <thead>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Actions</th>
-            </thead>
-            <tbody>
-                <% if (snippets) { %>
-                    <% snippets.forEach(snippet=> { %>
-                        <tr>
-                            <th>
-                                <%= snippet.id %>
-                            </th>
-                            <td>
-                                <%= snippet.title %>
-                            </td>
-                            <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
-                        </tr>
-                        <% }) %>
-                            <% } else { %>
-                                <p>
-                                    Pas de snippets!
-                                </p>
-                                <% } %>
-            </tbody>
-        </table>
-        <% for( let index=0; index < pages; index++ ) { %>
-            <a href="/snippets/?p=<%= index + 1 %>">
-                <%= index + 1 %>
-            </a>
-            <% } %>
+        <%- include('../partials/themeToggler.ejs') %>
+            <hr>
+            <h2>
+                <%= title %>
+            </h2>
+            <table border="">
+                <thead>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <% if (snippets) { %>
+                        <% snippets.forEach(snippet=> { %>
+                            <tr>
+                                <th>
+                                    <%= snippet.id %>
+                                </th>
+                                <td>
+                                    <%= snippet.title %>
+                                </td>
+                                <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
+                            </tr>
+                            <% }) %>
+                                <% } else { %>
+                                    <p>
+                                        Pas de snippets!
+                                    </p>
+                                    <% } %>
+                </tbody>
+            </table>
+            <%- include('../partials/pagination.ejs') %>
     </body>
 
     </html>

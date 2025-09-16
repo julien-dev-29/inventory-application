@@ -23,7 +23,7 @@ export default {
      * @param {*} res 
      */
     index: async (req, res) => {
-        const currentPage = req.query.p || 1
+        const currentPage = Number(req.query.p) || 1
         const count = await tagRepository.count()
         const pages = Math.ceil(count / 8)
         const offset = (currentPage - 1) * 8
@@ -34,6 +34,7 @@ export default {
                     title: "Liste des tags",
                     tags: tags,
                     currentPage: currentPage,
+                    slug: "tags",
                     pages: pages
                 })
             })

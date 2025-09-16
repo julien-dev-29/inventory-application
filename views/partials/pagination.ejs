@@ -1,0 +1,8 @@
+<div class="pagination-container">
+    <% for( let index=0; index < pages; index++ ) { %>
+        <a class="pagination-link <%= currentPage === (index + 1)  ? " link-active" : "" %>" href="/<%= slug %>/?p=<%= index +
+                1 %>">
+                <%= index + 1 %> 
+        </a>
+        <% } %>
+</div>
