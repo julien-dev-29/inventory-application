@@ -8,8 +8,23 @@ DROP TABLE IF EXISTS snippets;
 DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS languages;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_sessions;
 
 -- Création des tables
+CREATE TABLE user_sessions (
+    sid VARCHAR(255) PRIMARY KEY,
+    sess JSON NOT NULL,
+    expire TIMESTAMPTZ NOT NULL
+);
+
+CREATE TABLE users(
+   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+   username VARCHAR(50) UNIQUE NOT NULL,
+   password VARCHAR(255) UNIQUE NOT NULL,
+   admin BOOLEAN DEFAULT false
+);
+
 CREATE TABLE languages(
    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    name VARCHAR(50) UNIQUE NOT NULL
@@ -75,7 +90,8 @@ EXECUTE FUNCTION update_updated_at();
 CREATE INDEX idx_snippets_language_id ON snippets(language_id);
 CREATE INDEX idx_snippets_complexity ON snippets(complexity);
 
--- Données 
+-- Données
+
 INSERT INTO languages (name) VALUES
 ('JavaScript'),
 ('Python'),
@@ -106,36 +122,27 @@ INSERT INTO projects (name, description, github_repo) VALUES
 ('E-commerce Site', 'An online store for various products.', 'https://github.com/user/e-commerce-site');
 
 INSERT INTO snippets (title, code, description, complexity, is_public, language_id) VALUES
-('Bubble Sort', 'function bubbleSort(arr) { /* sorting logic */ }', 'A simple bubble sort algorithm.', 'Débutant', TRUE, 1),
-('Quick Sort', 'function quickSort(arr) { /* sorting logic */ }', 'An efficient quick sort algorithm.', 'Intermédiaire', TRUE, 1),
-('Merge Sort', 'function mergeSort(arr) { /* sorting logic */ }', 'A divide and conquer merge sort algorithm.', 'Avancé', FALSE, 1),
-('Binary Search', 'def binary_search(arr, target): # search logic', 'A binary search algorithm in Python.', 'Débutant', TRUE, 2),
-('Dijkstra''s Algorithm', 'def dijkstra(graph, start): # algorithm logic', 'An implementation of Dijkstra''s shortest path algorithm.', 'Avancé', FALSE, 2),
-('REST API with Flask', 'from flask import Flask # API logic', 'A simple REST API using Flask framework.', 'Intermédiaire', TRUE, 2),
-('Singleton Pattern in Java', 'public class Singleton { // pattern logic }', 'An example of Singleton design pattern in Java.', 'Intermédiaire', TRUE, 3),
-('Factory Pattern in Java', 'public class Factory { // pattern logic }', 'An example of Factory design pattern in Java.', 'Avancé', FALSE, 3),
-('Observer Pattern in Java', 'public class Observer { // pattern logic }', 'An example of Observer design pattern in Java.', 'Avancé', FALSE, 3),
-('LINQ Query Example', 'var result = from item in collection where item.Property == value select item;', 'An example of a LINQ query in C#.', 'Débutant', TRUE, 4),
-('Async/Await in C#', 'public async Task MethodAsync() { // async logic }', 'An example of using async/await in C#.', 'Intermédiaire', TRUE, 4),
-('Dependency Injection in C#', 'public class Service { // DI logic }', 'An example of Dependency Injection in C#.', 'Avancé', FALSE, 4),
-('Rails Model Example', 'class User < ApplicationRecord # model logic end', 'An example of a Rails model.', 'Débutant', TRUE, 5),
-('Active Record Associations', 'class Post < ApplicationRecord has_many :comments end', 'An example of Active Record associations in Rails.', 'Intermédiaire', TRUE, 5),
-('RSpec Test Example', 'describe \"MyClass\" do it \"does something\" end end', 'An example of an RSpec test in Ruby.', 'Avancé', FALSE, 5),
-('Goroutines in Go', 'go func() { // concurrent logic }()', 'An example of using goroutines for concurrency in Go.', 'Intermédiaire', TRUE, 6),
-('Channels in Go', 'ch := make(chan int) // channel logic', 'An example of using channels for communication in Go.', 'Avancé', FALSE, 6),
-('HTTP Server in Go', 'http.HandleFunc(\"/\", handler) // server logic', 'An example of a simple HTTP server in Go.', 'Débutant', TRUE, 6),
-('PDO Connection in PHP', '$pdo = new PDO($dsn, $user, $password); // connection logic', 'An example of connecting to a database using PDO in PHP.', 'Débutant', TRUE, 7),
-('Prepared Statements in PHP', '$stmt = $pdo->prepare(\"SELECT * FROM table WHERE id = ?\"); // statement logic', 'An example of using prepared statements in PHP.', 'Intermédiaire', TRUE, 7),
-('Laravel Eloquent Example', 'class User extends Model { // model logic }', 'An example of an Eloquent model in Laravel.', 'Avancé', FALSE, 7),
-('STL Vector Example in C++', '#include <vector> std::vector<int> vec; // vector logic', 'An example of using STL vectors in C++.', 'Débutant', TRUE, 8),
-('Smart Pointers in C++', '#include <memory> std::unique_ptr<int> ptr(new int); // smart pointer logic', 'An example of using smart pointers in C++.', 'Avancé', FALSE, 8),
-('Lambda Expressions in C++', 'auto add = [](int a, int b) { return a + b; }; // lambda logic', 'An example of using lambda expressions in C++.', 'Intermédiaire', TRUE, 8),
-('TypeScript Interface Example', 'interface User { name: string; age: number; } // interface logic', 'An example of defining an interface in TypeScript.', 'Débutant', TRUE, 9),
-('Generics in TypeScript', 'function identity<T>(arg: T): T { return arg; } // generics logic', 'An example of using generics in TypeScript.', 'Intermédiaire', TRUE, 9),
-('Decorators in TypeScript', 'function log(target: any, key: string) { // decorator logic } // decorator logic', 'An example of using decorators in TypeScript.', 'Avancé', FALSE, 9),
-('Swift Optionals', 'var name: String? = nil // optional logic', 'An example of using optionals in Swift.', 'Débutant', TRUE, 10),
-('Closures in Swift', 'let closure = { (param: Int) -> Int in return param * 2 } // closure logic', 'An example of using closures in Swift.', 'Intermédiaire', TRUE, 10),
-('Protocol-Oriented Programming in Swift', 'protocol Drawable { func draw() } // protocol logic', 'An example of protocol-oriented programming in Swift.', 'Avancé', FALSE, 10);
+('Bubble Sort', 'function bubbleSort(arr) { /*...*/ }', 'A simple bubble sort implementation.', 'easy', true, 4),
+('Quick Sort', 'function quickSort(arr) { /*...*/ }', 'An efficient quick sort implementation.', 'medium', true, 4),
+('Merge Sort', 'function mergeSort(arr) { /*...*/ }', 'A divide and conquer merge sort implementation.', 'hard', false, 1),
+('Binary Search Tree', 'class BST { /*...*/ }', 'Implementation of a binary search tree.', 'medium', true, 2),
+('Linked List', 'class LinkedList { /*...*/ }', 'A simple linked list implementation.', 'easy', true, 2),
+('REST API with Flask', 'from flask import Flask, jsonify', 'A basic REST API using Flask.', 'medium', false, 2),
+('Java Streams Example', 'import java.util.stream.*;', 'Using Java Streams for data processing.', 'hard', true, 3),
+('C# LINQ Example', 'using System.Linq;', 'Using LINQ in C# for data queries.', 'medium', true, 4),
+('Ruby on Rails Basics', 'class ApplicationController < ActionController::Base', 'Getting started with Ruby on Rails.', 'easy', false, 5),
+('Go Concurrency', 'go func() { /*...*/ }()', 'An introduction to concurrency in Go.', 'hard', true, 6),
+('PHP PDO Example', '$pdo = new PDO($dsn, $user, $password);', 'Using PDO for database access in PHP.', 'medium', true, 7),
+('C++ STL Example', '#include <vector>', 'Using the Standard Template Library in C++.', 'easy', false, 8),
+('TypeScript Interfaces', 'interface User { name: string; age: number; }', 'Defining interfaces in TypeScript.', 'easy', true, 9),
+('Swift Optionals', 'var name: String?', 'Understanding optionals in Swift.', 'medium', true, 10),
+('Dijkstra''s Algorithm', 'function dijkstra(graph, start) { /*...*/ }', 'Finding the shortest path in a graph.', 'hard', false, 1),
+('Hash Table Implementation', 'class HashTable { /*...*/ }', 'A simple hash table implementation.', 'medium', true, 1), 
+('Python Decorators', 'def my_decorator(func): /*...*/', 'Understanding decorators in Python.', 'easy', true, 2),
+('Java Generics', 'public class Box<T> { /*...*/ }', 'Using generics in Java.', 'medium', false, 3),
+('C# Async/Await', 'public async Task MyMethod() { /*...*/ }', 'Asynchronous programming in C#.', 'hard', true, 4),
+('Ruby Blocks', 'def my_method(&block) /*...*/ end', 'Using blocks in Ruby.', 'easy', true, 5),
+('Go Interfaces', 'type Reader interface { Read(p []byte) (n int, err error) }', 'Understanding interfaces in Go.', 'medium', true, 6);
 
 INSERT INTO snippet_tags (snippet_id, tag_id) VALUES
 (1, 1),

@@ -4,42 +4,45 @@
         <h1>
             <a href="/">Snippet Inventory</a>
         </h1>
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/snippets/create">Ajouter un snippet</a></li>
-        </ul>
-        <%- include('../partials/themeToggler.ejs') %>
-            <hr>
-            <h2>
-                <%= title %>
-            </h2>
-            <table border="">
-                <thead>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-                    <% if (snippets) { %>
-                        <% snippets.forEach(snippet=> { %>
-                            <tr>
-                                <th>
-                                    <%= snippet.id %>
-                                </th>
-                                <td>
-                                    <%= snippet.title %>
-                                </td>
-                                <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
-                            </tr>
-                            <% }) %>
-                                <% } else { %>
-                                    <p>
-                                        Pas de snippets!
-                                    </p>
-                                    <% } %>
-                </tbody>
-            </table>
-            <%- include('../partials/pagination.ejs') %>
+        <%= locals.currentUser ? "Connecté en tant que: " + currentUser.username :"Pas connecté" %>
+            <a href="/logout">Logout</a>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/snippets/create">Ajouter un snippet</a></li>
+                <li><a href="/admin">Admin</a></li>
+            </ul>
+            <%- include('../partials/themeToggler.ejs') %>
+                <hr>
+                <h2>
+                    <%= title %>
+                </h2>
+                <table border="">
+                    <thead>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Username</th>
+                    </thead>
+                    <tbody>
+                        <% if (snippets) { %>
+                            <% snippets.forEach(snippet=> { %>
+                                <tr>
+                                    <th>
+                                        <%= snippet.id %>
+                                    </th>
+                                    <td>
+                                        <%= snippet.title %>
+                                    </td>
+                                    <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
+                                </tr>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p>
+                                            Pas de snippets!
+                                        </p>
+                                        <% } %>
+                    </tbody>
+                </table>
+                <%- include('../partials/pagination.ejs') %>
     </body>
 
     </html>

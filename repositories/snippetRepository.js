@@ -63,7 +63,7 @@ export default {
         const { rows } = await pool.query(`
             SELECT
             s.*,
-            l.name AS language_name,
+            l.name language_name,
             json_agg(DISTINCT jsonb_build_object('id', t.id, 'name', t.name)) AS tags,
             json_agg(DISTINCT jsonb_build_object('id', p.id, 'name', p.name, 'description', p.description, 'github_repo', p.github_repo)) AS projects
             FROM snippets s

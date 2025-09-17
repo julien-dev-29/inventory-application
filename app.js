@@ -6,6 +6,10 @@ import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import path from 'node:path'
 import router from './routes/router.js'
+import session from 'express-session'
+import pgSession from 'connect-pg-simple'
+import pool from './repositories/pool.js'
+import passport from 'passport'
 import snippetRouter from './routes/snippetRouter.js'
 import projectRouter from './routes/projectRouter.js'
 import tagRouter from './routes/tagRouter.js'
@@ -29,13 +33,39 @@ app.use(bodyParser.urlencoded())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride(function (req, res) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-        // look in urlencoded POST bodies and delete it
         const method = req.body._method
         delete req.body._method
         return method
     }
 }))
 app.use(express.json())
+
+// PG Session
+const PgSession = pgSession(session);
+app.use(session({
+    store: new PgSession({ pool, tableName: 'user_sessions' }),
+    secret: process.env.SESSI0N_SECRET || 'cats',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}));
+
+// Passport
+import './config/passport.js'
+app.use(passport.session());
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
+app.use((req, res, next) => {
+    console.log(req.session);
+    console.log(req.user);
+    next()
+})
+
+
 
 
 // Router
