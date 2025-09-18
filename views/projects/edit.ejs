@@ -1,8 +1,7 @@
 <%- include('../partials/head.ejs') %>
 
-    <body>
-        <h1>Éditer le projet : <%= project.name %>
-        </h1>
+    <%- include('../partials/header.ejs') %>
+        <hr>
         <form action="/projects/<%= project.id %>/edit" method="POST" enctype="application/x-www-form-urlencoded">
             <input type="hidden" name="_method" value="PUT">
             <label for="name">Nom du projet :</label>
@@ -14,6 +13,6 @@
             <button type="submit">Sauvegarder les modifications</button>
             <a href="/projects/<%= project.id %>">Annuler</a>
         </form>
-    </body>
+        </body>
 
-    </html>
+        </html>

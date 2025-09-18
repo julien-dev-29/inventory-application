@@ -1,15 +1,6 @@
 <%- include('../partials/head.ejs') %>
 
-    <body>
-        <h1>
-            <a href="/">
-                <%= appTitle %>
-            </a>
-        </h1>
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/projects/create">Ajouter un projet</a></li>
-        </ul>
+    <%- include('../partials/header.ejs') %>
         <hr>
         <h2>
             <%= title %>
@@ -41,6 +32,6 @@
                 </a>
                 <% } %>
         </div>
-    </body>
+        </body>
 
-    </html>
+        </html>

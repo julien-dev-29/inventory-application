@@ -1,18 +1,6 @@
 <%- include('../partials/head.ejs') %>
 
-    <body>
-        <h1>
-            <a href="/">
-                <%= appTitle %>
-            </a>
-        </h1>
-        <nav>
-            <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/tags">Retour à la liste</a></li>
-            </ul>
-        </nav>
-        <hr>
+    <%- include('../partials/header.ejs') %>
         <h2>
             <%= title %>
         </h2>
@@ -23,5 +11,5 @@
                 <button type="submit">Ajouter</button>
                 <a href="/tags">Annuler</a>
             </form>
-    </body>
-    <html>
+            </body>
+            <html>

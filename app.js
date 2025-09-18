@@ -13,6 +13,7 @@ import passport from 'passport'
 import snippetRouter from './routes/snippetRouter.js'
 import projectRouter from './routes/projectRouter.js'
 import tagRouter from './routes/tagRouter.js'
+import authRouter from './routes/authRouter.js'
 
 // App
 const app = express()
@@ -56,7 +57,7 @@ app.use(session({
 import './config/passport.js'
 app.use(passport.session());
 app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
+    res.locals.admin = req.user;
     next();
 });
 app.use((req, res, next) => {
@@ -73,6 +74,7 @@ app.use(router)
 app.use('/snippets', snippetRouter)
 app.use('/projects', projectRouter)
 app.use('/tags', tagRouter)
+app.use(authRouter)
 
 // 404 page
 app.use((req, res) => {

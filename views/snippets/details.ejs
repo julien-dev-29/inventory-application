@@ -1,17 +1,6 @@
 <%- include('../partials/head.ejs') %>
 
-    <body>
-        <h1>
-            <a href="/">
-                <%= appTitle %>
-            </a>
-        </h1>
-        <nav>
-            <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/snippets">Retour à la liste</a></li>
-            </ul>
-        </nav>
+    <%- include('../partials/header.ejs') %>
 
         <hr>
         <h2>
@@ -25,7 +14,8 @@
             <%= snippet.is_public ? "Public" : "Privé" %>
         </p>
         <p>
-            <strong>Description: </strong><%= snippet.description %>
+            <strong>Description: </strong>
+            <%= snippet.description %>
         </p>
         <p><strong>Niveau:</strong>
             <%= snippet.complexity %>
@@ -58,12 +48,14 @@
                 <% }) %>
         </ul>
         </p>
-        <form action="/snippets/<%= snippet.id %>/delete" method="POST" enctype="application/x-www-form-urlencoded">
-            <input type="hidden" name="_method" value="DELETE" />
-            <a href="/snippets/<%= snippet.id %>/edit">Edit</a>
-            <button type="submit" onclick="return confirm('Etes vous sûr?')">Supprimer</button>
-        </form>
+        <% if (locals.admin) { %>
+            <form action="/snippets/<%= snippet.id %>/delete" method="POST" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="_method" value="DELETE" />
+                <a href="/snippets/<%= snippet.id %>/edit">Edit</a>
+                <button type="submit" onclick="return confirm('Etes vous sûr?')">Supprimer</button>
+            </form>
+            <% } %>
 
-    </body>
+                </body>
 
-    </html>
+                </html>

@@ -1,14 +1,6 @@
 <%- include('../partials/head.ejs') %>
 
-    <body>
-        <h1>
-            <%= appTitle %>
-        </h1>
-        <nav>
-            <ul>
-                <li><a href="/">Accueil</a></li>
-            </ul>
-        </nav>
+    <%- include('../partials/header.ejs') %>
         <hr>
         <h2>Editer le snippet : <%= snippet.title %>
         </h2>
@@ -60,6 +52,6 @@
                 <a href="/snippets/<%= snippet.id %>">Annuler</a>
             </form>
 
-    </body>
+            </body>
 
-    </html>
+            </html>

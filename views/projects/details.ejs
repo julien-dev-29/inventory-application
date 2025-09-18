@@ -1,11 +1,6 @@
 <%- include('../partials/head.ejs') %>
 
-    <body>
-        <h1><a href="/">Snippet Inventory</a></h1>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/projects">Retour à la liste des projets</a></li>
-        </ul>
+    <%- include('../partials/header.ejs') %>
         <hr>
         <h2>
             Détails du projet : <%= project.name %>
@@ -22,12 +17,14 @@
         <p><strong>Github repo :</strong>
             <%= project.github_repo %>
         </p>
-        <form action="/projects/<%= project.id %>/delete" method="post" enctype="application/x-www-form-urlencoded">
-            <input type="hidden" name="_method" value="DELETE">
-            <a href="/projects/<%= project.id %>/edit">Editer</a>
-            <button type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
-        </form>
+        <% if (locals.admin) { %>
+            <form action="/projects/<%= project.id %>/delete" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="_method" value="DELETE">
+                <a href="/projects/<%= project.id %>/edit">Editer</a>
+                <button type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
+            </form>
+            <% } %>
 
-    </body>
+                </body>
 
-    </html>
+                </html>
