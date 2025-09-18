@@ -1,31 +1,37 @@
 <%- include('../partials/head.ejs') %>
 
-        <%- include('../partials/header.ejs') %>
+    <%- include('../partials/header.ejs') %>
         <hr>
-        <table border="1">
-            <h2>
-                <%= title %>
-            </h2>
-            <thead>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Actions</th>
-            </thead>
-            <tbody>
-                <% tags.forEach(tag=> { %>
-                    <tr>
-                        <th>
-                            <%= tag.id %>
-                        </th>
-                        <td>
-                            <%= tag.name %>
-                        </td>
-                        <td><a href="/tags/<%= tag.id %>">Details</a></td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>
-        <%- include('../partials/pagination.ejs') %>
-    </body>
 
-    </html>
+        <h2>
+            <%= title %>
+        </h2>
+
+        <% if (locals.admin) { %>
+            <a class="btn-add" href="/tags/create">Ajouter un tag</a>
+            <% } %>
+            
+                <table border="1">
+                    <thead>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <% tags.forEach(tag=> { %>
+                            <tr>
+                                <th>
+                                    <%= tag.id %>
+                                </th>
+                                <td>
+                                    <%= tag.name %>
+                                </td>
+                                <td><a href="/tags/<%= tag.id %>">Details</a></td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+                <%- include('../partials/pagination.ejs') %>
+                    </body>
+
+                    </html>

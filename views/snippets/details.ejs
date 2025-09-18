@@ -3,6 +3,7 @@
     <%- include('../partials/header.ejs') %>
 
         <hr>
+        <a href="/snippets">Retour</a>
         <h2>
             Détail du snippet : <%= snippet.title %>
         </h2>
@@ -51,8 +52,11 @@
         <% if (locals.admin) { %>
             <form action="/snippets/<%= snippet.id %>/delete" method="POST" enctype="application/x-www-form-urlencoded">
                 <input type="hidden" name="_method" value="DELETE" />
-                <a href="/snippets/<%= snippet.id %>/edit">Edit</a>
-                <button type="submit" onclick="return confirm('Etes vous sûr?')">Supprimer</button>
+                <div>
+                    <a class="btn-edit" href="/snippets/<%= snippet.id %>/edit">Edit</a>
+                    <button class="btn-delete" type="submit"
+                        onclick="return confirm('Etes vous sûr?')">Supprimer</button>
+                </div>
             </form>
             <% } %>
 

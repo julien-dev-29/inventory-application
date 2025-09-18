@@ -64,7 +64,7 @@ export default {
             .then(project => {
                 res.render('projects/details', {
                     appTitle: appTitle,
-                    title: `Détails du projet ${project.title}`,
+                    title: `Détails du projet ${project.name}`,
                     project: project
                 })
             })

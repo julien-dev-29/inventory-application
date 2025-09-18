@@ -1,4 +1,4 @@
-/* :root,
+:root,
 .light,
 .light-theme {
   --blue-1: #fdfdfe;
@@ -313,8 +313,13 @@ a {
   text-decoration: none;
 }
 
+.nav-link {
+  color: var(--gray-11);
+}
+
 a:hover {
   color: var(--blue-9);
+  text-decoration: underline;
 }
 
 .pagination-link {
@@ -336,15 +341,13 @@ a:hover {
   gap: 4px;
 }
 
-ul {
-  list-style-type: none;
-}
-
 ul li {
   margin-bottom: 8px;
 }
 
 table {
+  margin-top: 16px;
+  box-sizing: border-box;
   border-collapse: collapse;
   background-color: var(--gray-2);
 }
@@ -384,4 +387,78 @@ textarea {
 
 textarea:focus {
   outline: 1px solid var(--blue-8);
-} */
+}
+
+.btn-edit {
+  text-align: center;
+  border-radius: 3px;
+  border: none;
+  padding: 8px 16px;
+  background-color: var(--blue-9);
+  color: white;
+  font-size: 13px;
+}
+
+.btn-edit:hover {
+  background-color: var(--blue-10);
+  color: white;
+}
+
+.btn-edit:active {
+  background-color: var(--blue-9);
+  transform: scale(0.98);
+}
+
+.btn-add {
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 8px 16px;
+  background-color: var(--blue-9);
+  color: white;
+  font-size: 13px;
+}
+
+.btn-add:hover {
+  background-color: var(--blue-10);
+  color: white;
+}
+
+.btn-add:active {
+  background-color: var(--blue-9);
+  transform: scale(0.9);
+}
+
+.btn-delete {
+  text-align: center;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 16px;
+  background-color: #E5484D;
+  color: white;
+  font-size: 13px;
+}
+
+.btn-delete:hover {
+  background-color: #bf3c41;
+  color: white;
+}
+
+.btn-delete:active {
+  background-color: #E5484D;
+  transform: scale(0.9)
+}
+
+form {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+form label {
+  color: var(--gray-11);
+}
+
+textarea {
+  color: var(--gray-11);
+}

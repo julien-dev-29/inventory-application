@@ -55,7 +55,6 @@ CREATE TABLE snippets(
    FOREIGN KEY(language_id) REFERENCES languages(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Le reste du script reste inchangé
 CREATE TABLE snippet_tags(
    snippet_id INT NOT NULL,
    tag_id INT NOT NULL,
@@ -72,7 +71,6 @@ CREATE TABLE snippet_projects(
    FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Trigger pour updated_at
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -86,11 +84,8 @@ BEFORE UPDATE ON snippets
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at();
 
--- Index pour les performances
 CREATE INDEX idx_snippets_language_id ON snippets(language_id);
 CREATE INDEX idx_snippets_complexity ON snippets(complexity);
-
--- Données
 
 INSERT INTO languages (name) VALUES
 ('JavaScript'),

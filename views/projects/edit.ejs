@@ -10,8 +10,10 @@
             <textarea id="description" name="description" required><%= project.description %></textarea>
             <label for="github_repo">Github repo :</label>
             <input id="github_repo" name="github_repo" value="<%= project.github_repo %>" required />
-            <button type="submit">Sauvegarder les modifications</button>
-            <a href="/projects/<%= project.id %>">Annuler</a>
+            <div>
+                <button class="btn-edit" type="submit">Sauvegarder les modifications</button>
+                <a class="btn-delete" href="/projects/<%= project.id %>">Annuler</a>
+            </div>
         </form>
         </body>
 

@@ -1,9 +1,20 @@
 <div>
-    <button class="themeToggler" id="themeToggler"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-            viewBox="0 0 24 24" fill="#172448" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" class="lucide lucide-moon-icon lucide-moon">
-            <path
-                d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+    <button class="themeToggler" id="themeToggler">
+        <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-sun-icon lucide-sun">
+                <circle cx="12" cy="12" r="5" />
+                <path
+                    d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+        </span>
+        <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#172448"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-moon-icon lucide-moon">
+                <path
+                    d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
         </svg>
     </button>
 </div>
@@ -12,6 +23,15 @@
     const body = document.getElementById('body')
     document.getElementById('themeToggler').addEventListener('click', () => {
         body.classList.toggle('dark-theme')
+        localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light')
+    })
+    window.addEventListener('load', () => {
+        const theme = localStorage.getItem('theme')
+        if (theme === 'dark') {
+            body.classList.add('dark-theme')
+        } else {
+            body.classList.remove('dark-theme')
+        }
     })
 
 </script>

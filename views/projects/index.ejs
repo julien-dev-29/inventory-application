@@ -5,6 +5,9 @@
         <h2>
             <%= title %>
         </h2>
+        <% if (locals.admin) { %>
+         <a class="btn-add" href="/projects/create">Ajouter un projet</a>
+        <% } %>
         <table border="1">
             <thead>
                 <th>#</th>

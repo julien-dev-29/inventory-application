@@ -9,13 +9,15 @@
                 <input type="hidden" name="_method" value="PUT">
                 <label for="title">Nom</label>
                 <input type="text" name="title" id="title" value="<%= snippet.title %>">
-                <input type="checkbox" name="is_public" id="is_public" value="true" <%=snippet.is_public ? 'checked'
-                    : '' %>
-                /> Public
+                <div>
+                    <input type="checkbox" name="is_public" id="is_public" value="true" <%=snippet.is_public ? 'checked'
+                        : '' %>
+                    /> Public
+                </div>
                 <label for="code">Code</label>
-                <textarea name="code" id="code"><%= snippet.code %></textarea>
+                <textarea name="code" id="code" rows="10"><%= snippet.code %></textarea>
                 <label for="description">Description</label>
-                <textarea name="description" id="description"><%= snippet.description %></textarea>
+                <textarea name="description" id="description" rows="5"><%= snippet.description %></textarea>
                 <label for="language_id">Langage</label>
                 <select name="language_id" id="language_id">
                     <% languages.forEach(l=> { %>
@@ -48,8 +50,10 @@
                         >Intermédiaire</option>
                     <option value="Avancé" <%=snippet.complexity==="Avancé" ? "selected" : "" %> >Avancé</option>
                 </select>
-                <button type="submit">Enregistrer les modifications</button>
-                <a href="/snippets/<%= snippet.id %>">Annuler</a>
+                <div>
+                    <button class="btn-edit" type="submit">Enregistrer les modifications</button>
+                    <a class="btn-delete" href="/snippets/<%= snippet.id %>">Annuler</a>
+                </div>
             </form>
 
             </body>

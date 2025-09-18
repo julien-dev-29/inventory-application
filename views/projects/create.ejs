@@ -2,24 +2,21 @@
 
     <%- include('../partials/header.ejs') %>
         <hr>
+        <a href="/projects">Retour</a>
         <h2>Créer un nouveau projet</h2>
         <%- include('../partials/errors.ejs') %>
-        <form action="/projects/create" method="POST">
-            <div>
+            <form action="/projects/create" method="POST">
                 <label for="name">Nom du projet :</label>
                 <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label for="description">Description :</label>
-                <textarea id="description" name="description" required></textarea>
-            </div>
-            <div>
+                <label for="description">Description</label>
+                <textarea id="description" rows="10" name="description" required></textarea>
                 <label for="github_repo">Github repo :</label>
-                <textarea id="github_repo" name="github_repo" required></textarea>
-            </div>
-            <button type="submit">Créer le projet</button>
-            <a href="/projects">Annuler</a>
-        </form>
-    </body>
+                <input type="text" id="github_repo" name="github_repo" required></input>
+                <div>
+                    <button class="btn-edit" type="submit">Ajouter le projet</button>
+                    <a class="btn-delete" href="/projects">Annuler</a>
+                </div>
+            </form>
+            </body>
 
-    </html>
+            </html>
