@@ -24,6 +24,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
+app.use(express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
 
 // EJS
 app.set("views", path.join(__dirname, "views"));
@@ -60,6 +61,8 @@ app.use((req, res, next) => {
     res.locals.admin = req.user;
     next();
 });
+
+
 app.use((req, res, next) => {
     console.log(req.session);
     console.log(req.user);

@@ -2,64 +2,70 @@
 
     <%- include('../partials/header.ejs') %>
 
-        <hr>
-        <a href="/snippets">Retour</a>
-        <h2>
-            Détail du snippet : <%= snippet.title %>
-        </h2>
-        <pre>
-            <%= snippet.code %>
+        <div class="p-2">
+            <a class="btn btn-info" href="/snippets">Back</a>
+        </div>
+        <div class="container">
+            <h2>
+                Détail du snippet : <%= snippet.title %>
+            </h2>
+            <pre>
+            <code>
+                <%= snippet.code %>
+            </code>
         </pre>
-        <p>
-            <strong>Status: </strong>
-            <%= snippet.is_public ? "Public" : "Privé" %>
-        </p>
-        <p>
-            <strong>Description: </strong>
-            <%= snippet.description %>
-        </p>
-        <p><strong>Niveau:</strong>
-            <%= snippet.complexity %>
-        </p>
-        <p>
-            <%= snippet.createdAt %>
-        </p>
-        <p>
-        <p><strong>Language:</strong>
-            <%= snippet.language_name %>
-        </p>
-        </p>
-        <p>
-        <h4>Tags:</h4>
-        <ul>
-            <% snippet.tags.forEach(tag=> { %>
-                <li>
-                    <%= tag.name %>
-                </li>
-                <% }) %>
-        </ul>
-        </p>
-        <p>
-        <h4>Projects:</h4>
-        <ul>
-            <% snippet.projects.forEach(project=> { %>
-                <li>
-                    <%= project.name %>
-                </li>
-                <% }) %>
-        </ul>
-        </p>
-        <% if (locals.admin) { %>
-            <form action="/snippets/<%= snippet.id %>/delete" method="POST" enctype="application/x-www-form-urlencoded">
-                <input type="hidden" name="_method" value="DELETE" />
-                <div>
-                    <a class="btn-edit" href="/snippets/<%= snippet.id %>/edit">Edit</a>
-                    <button class="btn-delete" type="submit"
-                        onclick="return confirm('Etes vous sûr?')">Supprimer</button>
-                </div>
-            </form>
-            <% } %>
+            <p>
+                <strong>Status: </strong>
+                <%= snippet.is_public ? "Public" : "Privé" %>
+            </p>
+            <p>
+                <strong>Description: </strong>
+                <%= snippet.description %>
+            </p>
+            <p><strong>Niveau:</strong>
+                <%= snippet.complexity %>
+            </p>
+            <p>
+                <%= snippet.createdAt %>
+            </p>
+            <p>
+            <p><strong>Language:</strong>
+                <%= snippet.language_name %>
+            </p>
+            </p>
+            <p>
+            <h3>Tags:</h3>
+            <ul>
+                <% snippet.tags.forEach(tag=> { %>
+                    <li>
+                        <%= tag.name %>
+                    </li>
+                    <% }) %>
+            </ul>
+            </p>
+            <p>
+            <h3>Projects:</h3>
+            <ul>
+                <% snippet.projects.forEach(project=> { %>
+                    <li>
+                        <%= project.name %>
+                    </li>
+                    <% }) %>
+            </ul>
+            </p>
+            <% if (locals.admin) { %>
+                <form action="/snippets/<%= snippet.id %>/delete" method="POST"
+                    enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <div>
+                        <a class="btn-edit" href="/snippets/<%= snippet.id %>/edit">Edit</a>
+                        <button class="btn-delete" type="submit"
+                            onclick="return confirm('Etes vous sûr?')">Supprimer</button>
+                    </div>
+                </form>
+                <% } %>
+        </div>
 
-                </body>
+        </body>
 
-                </html>
+        </html>

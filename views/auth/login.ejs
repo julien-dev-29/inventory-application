@@ -1,11 +1,19 @@
 <%- include('../partials/head.ejs') %>
-    <a href="/">Back</a>
 
-    <h2>Admin:</h2>
-    <form action="/login" method="POST">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-        <button class="btn-edit" type="submit">Se connecter</button>
-    </form>
+    <%- include('../partials/header.ejs') %>
+        <div class="p-2">
+            <a href="/">Back</a>
+        </div>
+
+        <div class="container p-4">
+            <h2>Admin:</h2>
+            <%= messages ? messages : '' %>
+            <%- include('../partials/errors') %>
+            <form action="/login" method="POST">
+                <label class="form-label mt-3" for="username">Username</label>
+                <input class="form-control" type="text" name="username" id="username">
+                <label class="form-label mt-3" for="password">Password</label>
+                <input class="form-control" type="password" name="password" id="password">
+                <button class="btn btn-primary mt-3" type="submit">Se connecter</button>
+            </form>
+        </div>

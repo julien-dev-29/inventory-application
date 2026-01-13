@@ -7,7 +7,8 @@ const authRouter = Router()
 authRouter.get('/login', authController.authGet)
 authRouter.post('/login', passport.authenticate("local", {
     successRedirect: '/snippets',
-    failureRedirect: '/login'
+    failureRedirect: '/login',
+    failureFlash: true
 }))
 authRouter.get('/register', authController.registerGet)
 authRouter.post('/register', authController.registerPost)

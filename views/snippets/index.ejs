@@ -1,40 +1,42 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <hr>
-        <h2>
-            <%= title %>
-        </h2>
-        <% if (locals.admin) { %>
-            <a class="btn-add" href="/snippets/create">Ajouter un sippet</a>
-            <% } %>
-                <table border="">
-                    <thead>
-                        <th>#</th>
-                        <th>Nom</th>
-                        <th>Actions</th>
-                    </thead>
-                    <tbody>
-                        <% if (snippets) { %>
-                            <% snippets.forEach(snippet=> { %>
-                                <tr>
-                                    <th>
-                                        <%= snippet.id %>
-                                    </th>
-                                    <td>
-                                        <%= snippet.title %>
-                                    </td>
-                                    <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
-                                </tr>
-                                <% }) %>
-                                    <% } else { %>
-                                        <p>
-                                            Pas de snippets!
-                                        </p>
-                                        <% } %>
-                    </tbody>
-                </table>
-                <%- include('../partials/pagination.ejs') %>
-                    </body>
 
-                    </html>
+        <div class="container">
+            <h2>
+                <%= title %>
+            </h2>
+            <% if (locals.admin) { %>
+                <a class="btn-add" href="/snippets/create">Ajouter un sippet</a>
+                <% } %>
+                    <table class="table table-hover table-bordered table-striped">
+                        <thead>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Actions</th>
+                        </thead>
+                        <tbody>
+                            <% if (snippets) { %>
+                                <% snippets.forEach(snippet=> { %>
+                                    <tr>
+                                        <th scope="row">
+                                            <%= snippet.id %>
+                                        </th>
+                                        <td>
+                                            <%= snippet.title %>
+                                        </td>
+                                        <td><a href="/snippets/<%= snippet.id %>">Details</a></td>
+                                    </tr>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <p>
+                                                Pas de snippets!
+                                            </p>
+                                            <% } %>
+                        </tbody>
+                    </table>
+                    <%- include('../partials/pagination.ejs') %>
+        </div>
+        </body>
+
+        </html>

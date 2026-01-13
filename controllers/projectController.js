@@ -34,7 +34,8 @@ export default {
                     title: "Liste des projets",
                     projects: projects,
                     currentPage: currentPage,
-                    pages: pages
+                    pages: pages,
+                    slug: "projects"
                 })
             })
             .catch(err => {

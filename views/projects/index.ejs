@@ -1,39 +1,34 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <hr>
-        <h2>
-            <%= title %>
-        </h2>
-        <% if (locals.admin) { %>
-         <a class="btn-add" href="/projects/create">Ajouter un projet</a>
-        <% } %>
-        <table border="1">
-            <thead>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Actions</th>
-            </thead>
-            <tbody>
-                <% projects.forEach(project=> { %>
-                    <tr>
-                        <th>
-                            <%= project.id %>
-                        </th>
-                        <td>
-                            <%= project.name %>
-                        </td>
-                        <td><a href="/projects/<%= project.id %>">Details</a></td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>
-        <div class="pagination-container">
-            <% for( let index=0; index < pages; index++ ) { %>
-                <a class="pagination-link" href="/projects?p=<%= index + 1 %>">
-                    <%= index + 1 %>
-                </a>
+        <div class="container">
+            <h2>
+                <%= title %>
+            </h2>
+            <% if (locals.admin) { %>
+                <a class="btn-add" href="/projects/create">Ajouter un projet</a>
                 <% } %>
+                    <table class="table table-hover table-bordered table-striped">
+                        <thead>
+                            <th>#</th>
+                            <th>Nom</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            <% projects.forEach(project=> { %>
+                                <tr>
+                                    <th>
+                                        <%= project.id %>
+                                    </th>
+                                    <td>
+                                        <%= project.name %>
+                                    </td>
+                                    <td><a href="/projects/<%= project.id %>">Details</a></td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <%- include('../partials/pagination.ejs') %>
         </div>
         </body>
 

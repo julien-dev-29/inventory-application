@@ -2,7 +2,11 @@ const appTitle = process.env.APP_TITLE || "App"
 
 export default {
     authGet: (req, res) => {
-        res.render('auth/login', { appTitle: appTitle, title: "Admin" })
+        res.render('auth/login', {
+            appTitle: appTitle,
+            messages: req.session.messages,
+            title: "Admin"
+        })
     },
     registerGet: (req, res) => {
         res.render('auth/register', { appTitle: appTitle, title: "Register" })

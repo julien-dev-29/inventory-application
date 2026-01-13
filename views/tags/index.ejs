@@ -1,37 +1,38 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <hr>
 
-        <h2>
-            <%= title %>
-        </h2>
+        <div class="container">
+            <h2>
+                <%= title %>
+            </h2>
 
-        <% if (locals.admin) { %>
-            <a class="btn-add" href="/tags/create">Ajouter un tag</a>
-            <% } %>
-            
-                <table border="1">
-                    <thead>
-                        <th>#</th>
-                        <th>Nom</th>
-                        <th>Actions</th>
-                    </thead>
-                    <tbody>
-                        <% tags.forEach(tag=> { %>
-                            <tr>
-                                <th>
-                                    <%= tag.id %>
-                                </th>
-                                <td>
-                                    <%= tag.name %>
-                                </td>
-                                <td><a href="/tags/<%= tag.id %>">Details</a></td>
-                            </tr>
-                            <% }) %>
-                    </tbody>
-                </table>
-                <%- include('../partials/pagination.ejs') %>
-                    </body>
+            <% if (locals.admin) { %>
+                <a class="btn-add" href="/tags/create">Ajouter un tag</a>
+                <% } %>
 
-                    </html>
+                    <table class="table table-hover table-bordered table-striped">
+                        <thead>
+                            <th>#</th>
+                            <th>Nom</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            <% tags.forEach(tag=> { %>
+                                <tr>
+                                    <th>
+                                        <%= tag.id %>
+                                    </th>
+                                    <td>
+                                        <%= tag.name %>
+                                    </td>
+                                    <td><a href="/tags/<%= tag.id %>">Details</a></td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <%- include('../partials/pagination.ejs') %>
+        </div>
+        </body>
+
+        </html>

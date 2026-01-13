@@ -95,7 +95,8 @@ export default {
             snippetRepository.updateSnippetById(req.params.id, req.body)
                 .then(() => res.redirect(`/snippets/${req.params.id}`))
                 .catch(err => console.log(err))
-        }],
+        }
+    ],
 
     /**
      * 
@@ -122,14 +123,17 @@ export default {
         async (req, res) => {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                return res.status(400).render('snippets/create', {
-                    appTitle: appTitle,
-                    title: "Ajouter un snippet",
-                    languages: await languageRepository.getAllLanguages(),
-                    tags: await tagRepository.getAllTags(),
-                    projects: await projectRepository.getAllProjects(),
-                    errors: errors.array()
-                })
+                return res.status(400).render(
+                    'snippets/create',
+                    {
+                        appTitle: appTitle,
+                        title: "Ajouter un snippet",
+                        languages: await languageRepository.getAllLanguages(),
+                        tags: await tagRepository.getAllTags(),
+                        projects: await projectRepository.getAllProjects(),
+                        errors: errors.array()
+                    }
+                )
             }
             snippetRepository.insertSnippet(req.body)
                 .then(() => res.redirect('/snippets'))
