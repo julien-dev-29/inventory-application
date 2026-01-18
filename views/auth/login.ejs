@@ -1,19 +1,24 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <div class="p-2">
-            <a href="/">Back</a>
-        </div>
+        <div class="container flex-grow-1 p-5">
 
-        <div class="container p-4">
+            <div class="p-2">
+                <a href="/">Back</a>
+            </div>
+
             <h2>Admin:</h2>
             <%= messages ? messages : '' %>
-            <%- include('../partials/errors') %>
-            <form action="/login" method="POST">
-                <label class="form-label mt-3" for="username">Username</label>
-                <input class="form-control" type="text" name="username" id="username">
-                <label class="form-label mt-3" for="password">Password</label>
-                <input class="form-control" type="password" name="password" id="password">
-                <button class="btn btn-primary mt-3" type="submit">Se connecter</button>
-            </form>
+                <%- include('../partials/errors') %>
+                    <form action="/login" method="POST">
+                        <label class="form-label mt-3" for="username">Username</label>
+                        <input class="form-control" type="text" name="username" id="username">
+                        <label class="form-label mt-3" for="password">Password</label>
+                        <input class="form-control" type="password" name="password" id="password">
+                        <button class="btn btn-primary mt-3" type="submit">Se connecter</button>
+                    </form>
         </div>
+        <%- include('../partials/footer.ejs') %>
+            </body>
+
+            </html>
