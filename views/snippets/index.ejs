@@ -2,14 +2,14 @@
 
     <%- include('../partials/header.ejs') %>
 
-        <div class="container">
+        <div class="container flex-grow-1 p-5">
             <h2>
                 <%= title %>
             </h2>
             <% if (locals.admin) { %>
                 <a class="btn-add" href="/snippets/create">Ajouter un sippet</a>
                 <% } %>
-                    <table class="table table-hover table-bordered table-striped">
+                    <table class="table table-hover table- table-striped mt-3">
                         <thead>
                             <th scope="col">#</th>
                             <th scope="col">Nom</th>
@@ -35,8 +35,11 @@
                                             <% } %>
                         </tbody>
                     </table>
-                    <%- include('../partials/pagination.ejs') %>
+                    <div class="d-flex justify-content-center">
+                        <%- include('../partials/pagination.ejs') %>
+                    </div>
         </div>
-        </body>
+        <%- include('../partials/footer.ejs') %>
+            </body>
 
-        </html>
+            </html>
