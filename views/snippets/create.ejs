@@ -1,58 +1,72 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <hr>
-        <a href="/snippets">Retour</a>
-        <h2>
-            <%= title %>
-        </h2>
-        <%- include('../partials/errors.ejs') %>
-            <form action="/snippets/create" method="post">
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" required>
-                <div>
-                    <input type="checkbox" name="is_public" id="is_public" value="true">Public
-                </div>
-                <label for=" code">Code</label>
-                <textarea name="code" id="code" rows="10" required></textarea>
-                <label for="description">Description</label>
-                <textarea name="description" id="description" rows="5" required></textarea>
-                <label for="language_id">Langage</label>
-                <select name="language_id" id="language_id" required>
-                    <% languages.forEach(l=> { %>
-                        <option value="<%= l.id %>">
-                            <%= l.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <label for="tags">Tags</label>
-                <select name="tags" id="tags" multiple required>
-                    <% tags.forEach(t=> { %>
-                        <option value="<%= t.id %>">
-                            <%= t.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <label for="projects">Projets</label>
-                <select name="projects" id="projects" multiple required>
-                    <% projects.forEach(p=> { %>
-                        <option value="<%= p.id %>">
-                            <%= p.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <label for="complexity">Niveau</label>
-                <select name="complexity" id="complexity">
-                    <option value="Débutant">Débutant</option>
-                    <option value=" Intermédiaire">Intermédiaire</option>
-                    <option value=" Avancé">Avancé</option>
-                </select>
-                <div>
-                    <button class="btn-edit" type="submit">Ajouter</button>
-                    <a class="btn-delete" href="/snippets">Annuler</a>
-                </div>
-            </form>
+        <div class="container flex-grow-1 p-5">
 
-            </body>
+            <a href="/snippets">Retour</a>
+            <h2>
+                <%= title %>
+            </h2>
+            <%- include('../partials/errors.ejs') %>
+                <form action="/snippets/create">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="is_public">
+                        <label class="form-check-label" for="is_public">Public</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="code">Code</label>
+                        <textarea class="form-control" name="code" id="code" rows="10" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description" rows="5" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="language_id">Language</label>
+                        <select class="form-select" id="language_id" name="language_id"
+                            aria-label="Default select example">
+                            <% languages.forEach(l=> {%>
+                                <option value="<%= l.id %>">
+                                    <%= l.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="tags">Tags</label>
+                        <select class="form-select" name="tags" id="tags" multiple required>
+                            <% tags.forEach(t=> { %>
+                                <option value="<%= t.id %>">
+                                    <%= t.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="projects">Projets</label>
+                        <select class="form-select" name="projects" id="projects" multiple required>
+                            <% projects.forEach(p=> { %>
+                                <option value="<%= p.id %>">
+                                    <%= p.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="complexity">Niveau</label>
+                        <select class="form-select" name="complexity" id="complexity">
+                            <option value="Débutant">Débutant</option>
+                            <option value=" Intermédiaire">Intermédiaire</option>
+                            <option value=" Avancé">Avancé</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+        </div>
+        </body>
 
-            </html>
+        </html>

@@ -24,8 +24,9 @@
                     enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="_method" value="DELETE">
                     <div>
-                        <a class="btn-edit" href="/projects/<%= project.id %>/edit">Editer</a>
-                        <button class="btn-delete" type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
+                        <a class="btn btn-primary" href="/projects/<%= project.id %>/edit">Editer</a>
+                        <button class="btn btn-danger" type="submit"
+                            onclick="alert('Etes vous sûr?')">Supprimer</button>
                     </div>
                 </form>
                 <% } %>

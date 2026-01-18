@@ -80,6 +80,7 @@ export default {
       languages: await languageRepository.getAllLanguages(),
       tags: await tagRepository.getAllTags(),
       projects: await projectRepository.getAllProjects(),
+      slug: "snippets",
     });
   },
 
@@ -104,6 +105,7 @@ export default {
           tags: await tagRepository.getAllTags(),
           projects: await projectRepository.getAllProjects(),
           errors: errors.array(),
+          slug: "snippets",
         });
       }
       snippetRepository
@@ -125,6 +127,7 @@ export default {
       languages: await languageRepository.getAllLanguages(),
       tags: await tagRepository.getAllTags(),
       projects: await projectRepository.getAllProjects(),
+      slug: "snippets",
     });
   },
 
@@ -145,6 +148,7 @@ export default {
           tags: await tagRepository.getAllTags(),
           projects: await projectRepository.getAllProjects(),
           errors: errors.array(),
+          slug: "snippets",
         });
       }
       snippetRepository

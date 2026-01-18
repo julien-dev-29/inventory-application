@@ -1,8 +1,10 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
+        <div class="p-3">
+            <a href="/tags">Back</a>
+        </div>
         <div class="container flex-grow-1 p-5">
-            <a href="/tags">Retour</a>
             <h2>
                 <%= title %>
             </h2>
@@ -13,8 +15,8 @@
                 <form action="/tags/<%= tag.id %>/delete" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="_method" value="DELETE">
                     <div>
-                        <a class="btn-edit" href="/tags/<%= tag.id %>/edit">Editer</a>
-                        <button class="btn-delete" type="submit"
+                        <a class="btn btn-primary" href="/tags/<%= tag.id %>/edit">Editer</a>
+                        <button class="btn btn-danger" type="submit"
                             onclick="return confirm('Etes vous sûr ?')">Supprimer</button>
                     </div>
                 </form>

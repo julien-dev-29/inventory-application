@@ -119,14 +119,15 @@ export default {
     (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.log(errors);
         return projectRepository
           .getProjectById(req.params.id)
           .then((project) => {
-            res.status(4000).render("projects/edit", {
+            res.status(400).render("projects/edit", {
               appTitle: appTitle,
               title: "Editer le projet",
               project: project,
-              errors: errors,
+              errors: errors.errors ?? [],
               slug: "projects",
             });
           })
@@ -159,6 +160,7 @@ export default {
           title: "Editer le projet",
           project: project,
           slug: "projects",
+          errors: [],
         });
       })
       .catch((err) => {

@@ -1,61 +1,85 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <hr>
-        <h2>Editer le snippet : <%= snippet.title %>
-        </h2>
-        <%- include('../partials/errors.ejs') %>
-            <form action="/snippets/<%= snippet.id %>/edit" method="post" enctype="application/x-www-form-urlencoded">
-                <input type="hidden" name="_method" value="PUT">
-                <label for="title">Nom</label>
-                <input type="text" name="title" id="title" value="<%= snippet.title %>">
-                <div>
-                    <input type="checkbox" name="is_public" id="is_public" value="true" <%=snippet.is_public ? 'checked'
-                        : '' %>
-                    /> Public
-                </div>
-                <label for="code">Code</label>
-                <textarea name="code" id="code" rows="10"><%= snippet.code %></textarea>
-                <label for="description">Description</label>
-                <textarea name="description" id="description" rows="5"><%= snippet.description %></textarea>
-                <label for="language_id">Langage</label>
-                <select name="language_id" id="language_id">
-                    <% languages.forEach(l=> { %>
-                        <option value="<%= l.id %>" <%=snippet.language_id===l.id ? 'selected' : '' %> >
-                            <%= l.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <label for="tags">Tags</label>
-                <select name="tags" id="tags" multiple>
-                    <% tags.forEach(t=> { %>
-                        <option value="<%= t.id %>" <%=snippet.tags.map(tag=> tag.id).includes(t.id) ? 'selected' : ''
-                            %> >
-                            <%= t.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <label for="projects">Projets</label>
-                <select name="projects" id="projects" multiple>
-                    <% projects.forEach(p=> { %>
-                        <option value="<%= p.id %>" <%=snippet.projects.map(project=> project.id).includes(p.id) ?
-                            'selected' : '' %> ><%= p.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <label for="complexity">Niveau</label>
-                <select name="complexity" id="complexity">
-                    <option value="Débutant" <%=snippet.complexity==="Débutant" ? "selected" : "" %> >Débutant</option>
-                    <option value="Intermédiaire" <%=snippet.complexity==="Intermédiaire" ? "selected" : "" %>
-                        >Intermédiaire</option>
-                    <option value="Avancé" <%=snippet.complexity==="Avancé" ? "selected" : "" %> >Avancé</option>
-                </select>
-                <div>
-                    <button class="btn-edit" type="submit">Enregistrer les modifications</button>
-                    <a class="btn-delete" href="/snippets/<%= snippet.id %>">Annuler</a>
-                </div>
-            </form>
+        <div class="container flex-grow-1 p-5">
 
-            </body>
+            <h2>Edit : <%= snippet.title %>
+            </h2>
+            <%- include('../partials/errors.ejs') %>
+                <form action="/snippets/<%= snippet.id %>/edit" method="post"
+                    enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Name</label>
+                        <input class="form-control" type="text" name="title" id="title" value="<%= snippet.title %>">
+                    </div>
+                    <div>
+                        <label class="form-label" for="is_public">Public</label>
+                        <input class="form-check-input" type="checkbox" name="is_public" id="is_public" value="true"
+                            <%=snippet.is_public ? 'checked' : '' %>
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="code">Code</label>
+                        <textarea class="form-control" name="code" id="code" rows="10"><%= snippet.code %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description"
+                            rows="5"><%= snippet.description %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="language_id">Language</label>
+                        <select class="form-select" name="language_id" id="language_id">
+                            <% languages.forEach(l=> { %>
+                                <option value="<%= l.id %>" <%=snippet.language_id===l.id ? 'selected' : '' %> >
+                                    <%= l.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="tags">Tags</label>
+                        <select class="form-select" name="tags" id="tags" multiple>
+                            <% tags.forEach(t=> { %>
+                                <option value="<%= t.id %>" <%=snippet.tags.map(tag=> tag.id).includes(t.id) ?
+                                    'selected' :
+                                    ''
+                                    %> >
+                                    <%= t.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="projects">Projects</label>
+                        <select class="form-select" name="projects" id="projects" multiple>
+                            <% projects.forEach(p=> { %>
+                                <option value="<%= p.id %>" <%=snippet.projects.map(project=> project.id).includes(p.id)
+                                    ?
+                                    'selected' : '' %> ><%= p.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="complexity">Niveau</label>
+                        <select class="form-select" name="complexity" id="complexity">
+                            <option value="Débutant" <%=snippet.complexity==="Débutant" ? "selected" : "" %> >Débutant
+                            </option>
+                            <option value="Intermédiaire" <%=snippet.complexity==="Intermédiaire" ? "selected" : "" %>
+                                >Intermédiaire</option>
+                            <option value="Avancé" <%=snippet.complexity==="Avancé" ? "selected" : "" %> >Avancé
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <a class="btn btn-danger" href="/snippets/<%= snippet.id %>">Cancel</a>
+                    </div>
+                </form>
 
-            </html>
+        </div>
+        </body>
+
+        </html>

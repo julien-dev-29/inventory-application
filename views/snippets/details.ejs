@@ -1,12 +1,31 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-
-        <div class="container flex-grow-1 p-5">
+        <div class="p-3">
             <a class="" href="/snippets">Back</a>
-            <h2>
-                Détail du snippet : <%= snippet.title %>
-            </h2>
+        </div>
+        <div class="container flex-grow-1 p-5">
+
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h2>
+                        Détail du snippet : <%= snippet.title %>
+                    </h2>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <% if (locals.admin) { %>
+                        <form action="/snippets/<%= snippet.id %>/delete" method="POST"
+                            enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <div>
+                                <a class="btn btn-primary" href="/snippets/<%= snippet.id %>/edit">Edit</a>
+                                <button class="btn btn-danger" type="submit"
+                                    onclick="return confirm('Etes vous sûr?')">Supprimer</button>
+                            </div>
+                        </form>
+                        <% } %>
+                </div>
+            </div>
             <pre>
             <code>
                 <%= snippet.code %>
@@ -51,17 +70,6 @@
                     <% }) %>
             </ul>
             </p>
-            <% if (locals.admin) { %>
-                <form action="/snippets/<%= snippet.id %>/delete" method="POST"
-                    enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" name="_method" value="DELETE" />
-                    <div>
-                        <a class="btn-edit" href="/snippets/<%= snippet.id %>/edit">Edit</a>
-                        <button class="btn-delete" type="submit"
-                            onclick="return confirm('Etes vous sûr?')">Supprimer</button>
-                    </div>
-                </form>
-                <% } %>
         </div>
         <%- include('../partials/footer.ejs') %>
 

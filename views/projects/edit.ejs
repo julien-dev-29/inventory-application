@@ -1,20 +1,35 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <hr>
-        <form action="/projects/<%= project.id %>/edit" method="POST" enctype="application/x-www-form-urlencoded">
-            <input type="hidden" name="_method" value="PUT">
-            <label for="name">Nom du projet :</label>
-            <input type="text" id="name" name="name" value="<%= project.name %>" required>
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" required><%= project.description %></textarea>
-            <label for="github_repo">Github repo :</label>
-            <input id="github_repo" name="github_repo" value="<%= project.github_repo %>" required />
-            <div>
-                <button class="btn-edit" type="submit">Sauvegarder les modifications</button>
-                <a class="btn-delete" href="/projects/<%= project.id %>">Annuler</a>
-            </div>
-        </form>
-        </body>
+        <div class="container flex-grow-1 p-5">
+            <h2>Edit: <%= project.name %>
+            </h2>
+            <%- include('../partials/errors.ejs') %>
+                <form action="/projects/<%= project.id %>/edit" method="POST"
+                    enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Name</label>
+                        <input class="form-control" type="text" id="name" name="name" value="<%= project.name %>"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description :</label>
+                        <textarea class="form-control" id="description" name="description" rows="5"
+                            required><%= project.description %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="github_repo">Github repo :</label>
+                        <input class="form-control" id="github_repo" name="github_repo"
+                            value="<%= project.github_repo %>" required />
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Sauvegarder les modifications</button>
+                        <a class="btn btn-danger" href="/projects/<%= project.id %>">Annuler</a>
+                    </div>
+                </form>
+        </div>
+        <%- include('../partials/footer.ejs') %>
+            </body>
 
-        </html>
+            </html>
