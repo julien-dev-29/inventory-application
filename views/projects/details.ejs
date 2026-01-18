@@ -1,33 +1,36 @@
 <%- include('../partials/head.ejs') %>
 
     <%- include('../partials/header.ejs') %>
-        <hr>
-        <a href="/projects">Retour</a>
-        <h2>
-            Détails du projet : <%= project.name %>
-        </h2>
-        <p><strong>ID :</strong>
-            <%= project.id %>
-        </p>
-        <p><strong>Nom :</strong>
-            <%= project.name %>
-        </p>
-        <p><strong>Description :</strong>
-            <%= project.description %>
-        </p>
-        <p><strong>Github repo :</strong>
-            <%= project.github_repo %>
-        </p>
-        <% if (locals.admin) { %>
-            <form action="/projects/<%= project.id %>/delete" method="post" enctype="application/x-www-form-urlencoded">
-                <input type="hidden" name="_method" value="DELETE">
-                <div>
-                    <a class="btn-edit" href="/projects/<%= project.id %>/edit">Editer</a>
-                    <button class="btn-delete" type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
-                </div>
-            </form>
-            <% } %>
+        <div class="container flex-grow-1 p-5">
 
-                </body>
+            <a href="/projects">Retour</a>
+            <h2>
+                Détails du projet : <%= project.name %>
+            </h2>
+            <p><strong>ID :</strong>
+                <%= project.id %>
+            </p>
+            <p><strong>Nom :</strong>
+                <%= project.name %>
+            </p>
+            <p><strong>Description :</strong>
+                <%= project.description %>
+            </p>
+            <p><strong>Github repo :</strong>
+                <%= project.github_repo %>
+            </p>
+            <% if (locals.admin) { %>
+                <form action="/projects/<%= project.id %>/delete" method="post"
+                    enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <div>
+                        <a class="btn-edit" href="/projects/<%= project.id %>/edit">Editer</a>
+                        <button class="btn-delete" type="submit" onclick="alert('Etes vous sûr?')">Supprimer</button>
+                    </div>
+                </form>
+                <% } %>
+        </div>
+        <%- include('../partials/footer.ejs') %>
+        </body>
 
-                </html>
+        </html>
